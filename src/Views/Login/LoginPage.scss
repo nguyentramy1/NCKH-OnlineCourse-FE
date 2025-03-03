@@ -1,0 +1,387 @@
+.login-container {
+  // background-image: url("../../Assets/Image/BGLogin.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 84vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+
+  .Loading-cover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    &.active {
+      opacity: 1;
+      z-index: 1000;
+    }
+
+    .modal {
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+  }
+
+  .notice-error {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    transition: all 1s linear;
+  }
+
+  .form-login {
+    width: 100%;
+    // height: 100vh;
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    .ImgLogin {
+      mask-image: url(../../Assets/Image/ImgLogin.svg);
+      mask-size: cover;
+      width: 633px;
+      height: auto;
+      background: white;
+      aspect-ratio: 1;
+      margin: 5px;
+      margin-left: 10px;
+    }
+    .modal-login {
+      top:60px;
+      width: 600px !important;
+      height: 600px !important;
+      background-color: rgba(255, 255, 255, 0.5); // 50% độ trong suốt
+      border-radius: 8px;
+      position: relative;
+      .logoLogin {
+        text-align: center; 
+        img {
+          display: block;
+          margin: auto;
+        }
+        span {
+          display: block;
+          font-weight: bold;
+          font-size: 32px;
+          color: #000000;
+        }
+      }
+
+      .input-area {
+        h1 {
+          font-weight: 600;
+        }
+
+        .input-field {
+          height: 200px;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          // gap: 50px;
+          .input-container {
+            padding-left: 10px;
+            border-radius: 20px;
+            width: 463.68px;
+            height: 52px !important;
+            border: 4px solid #237BFF;
+            input {
+              height: 30px;
+              font-size: 20px;
+              width: 400px;
+            }
+            img {
+              width: 0;
+              overflow: hidden;
+              padding: 0;
+              margin: 0;
+            }
+          }
+          .username {
+            p {
+              top: 15px;
+              position: relative;
+              font-weight: bold;
+              font-size: 18px;
+              color: #000000;
+            }
+            .tooltip {
+              // transform: translateY(-40px) translateX(170px);
+              position: absolute;
+              // right: 0;
+              // background-color: rgba(255, 111, 111, 1);
+              // color: white;
+              color: red;
+              border-radius: 4px;
+              width: 200px;
+              opacity: 1;
+              transition: all 0.3s ease;
+              z-index: 1000;
+              // clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);
+              white-space: nowrap;
+              overflow: hidden;
+              &.hidden {
+                height: 18px;
+                width: 0px;
+                overflow: hidden;
+                opacity: 0;
+              }
+            }
+          }
+          .password {
+            p {
+              top: 15px;
+              position: relative;
+              font-weight: bold;
+              font-size: 18px;
+              color: #000000;
+            }
+            .tooltip {
+              // transform: translateY(-40px) translateX(220px);
+              position: absolute;
+              // right: 0;
+              // background-color: rgba(255, 111, 111, 1);
+              color: red;
+              border-radius: 4px;
+              width: 170px;
+              opacity: 1;
+              transition: all 0.3s ease;
+              z-index: 1000;
+              // clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);
+              white-space: nowrap;
+              overflow: hidden;
+              &.hidden {
+                height: 18px;
+                width: 0px;
+                overflow: hidden;
+                opacity: 0;
+              }
+            }
+          }
+        }
+      }
+      .btn-container {
+        position: relative;
+        top: 100px;
+        left: 60px;
+        display: flex;
+        justify-content: space-between; // Đẩy hai phần tử ra hai bên
+        width: calc(100% - 120px); // Đảm bảo không bị tràn khi có `left: 60px`
+        .btn-login {
+          display: flex;
+          .custom-btn {
+            width: 100px;
+            height: 40px;
+            background-color: #237BFF;
+            font-weight: bold;
+            border: 1px solid #000000;
+          }
+        }
+        .link-btn {
+          cursor: default;
+          font-weight: bold;
+          font-size: 18px;
+          p {
+            color: rgb(0, 0, 0);
+            span {
+              font-size: 24px;
+              padding-left: 5px;
+              cursor: pointer;
+              color: #237BFF;
+            }
+          }
+        }
+      }
+    }
+  }
+  .form-signup {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    .modal-login {
+      padding: 10px;
+      border-radius: 8px;
+      position: relative;
+      .logoLogin {
+        text-align: center; 
+        img {
+          display: block;
+          margin: auto;
+        }
+        span {
+          display: block;
+          font-weight: bold;
+          font-size: 32px;
+          color: #000000;
+        }
+      }
+
+      .input-area {
+        position: relative;
+        top:-10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin: auto;
+        h1 {
+          font-weight: 600;
+        }
+
+        .input-field {
+          height: auto;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          position: relative;
+          // gap: 50px;
+          .input-container {
+            padding-left: 10px;
+            border-radius: 20px;
+            width: 637px;
+            height: 52px;
+            border: 4px solid #237BFF;
+            input {
+              height: 40px;
+              font-size: 20px;
+              width: 400px;
+            }
+            img {
+              width: 0;
+              overflow: hidden;
+              padding: 0;
+              margin: 0;
+            }
+          }
+          .username {
+            p {
+              top: 15px;
+              position: relative;
+              font-weight: bold;
+              font-size: 18px;
+              color: #000000;
+            }
+            .tooltip {
+              // transform: translateY(-40px) translateX(170px);
+              position: absolute;
+              // right: 0;
+              // background-color: rgba(255, 111, 111, 1);
+              // color: white;
+              color: red;
+              border-radius: 4px;
+              width: 200px;
+              opacity: 1;
+              transition: all 0.3s ease;
+              z-index: 1000;
+              // clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);
+              white-space: nowrap;
+              overflow: hidden;
+              &.hidden {
+                height: 18px;
+                width: 0px;
+                overflow: hidden;
+                opacity: 0;
+              }
+            }
+          }}
+         
+        
+        .password-container {
+          display: flex;
+          justify-content: space-between;
+          flex-direction: row;
+          gap: 25px;
+          .input-container {
+            padding-left: 10px;
+            border-radius: 20px;
+            width: 300px;
+            height: 52px;
+            border: 4px solid #237BFF;
+            input {
+              height: 40px;
+              font-size: 20px;
+              width: 200px;
+            }
+            img {
+              width: 0;
+              overflow: hidden;
+              padding: 0;
+              margin: 0;
+            }
+          }
+          .password {
+            p {
+              top: 15px;
+              position: relative;
+              font-weight: bold;
+              font-size: 18px;
+              color: #000000;
+            }
+            .tooltip {
+              // transform: translateY(-40px) translateX(220px);
+              position: absolute;
+              // right: 0;
+              // background-color: rgba(255, 111, 111, 1);
+              color: red;
+              border-radius: 4px;
+              width: 600px;
+              opacity: 1;
+              transition: all 0.3s ease;
+              z-index: 1000;
+              // clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);
+              white-space: nowrap;
+              overflow: hidden;
+              &.hidden {
+                height: 18px;
+                width: 0px;
+                overflow: hidden;
+                opacity: 0;
+              }
+            }
+          }
+        }}
+      .btn-container {
+        
+        position: relative;
+        top:30px;
+        display: flex;
+        justify-content: space-between; // Đẩy hai phần tử ra hai bên
+        gap: 50px;
+        .btn-login {
+          display: flex;
+          .custom-btn {
+            width: 100px;
+            height: 40px;
+            background-color: #237BFF;
+            font-weight: bold;
+            border: 1px solid #000000;
+          }
+        }
+        .link-btn {
+          cursor: default;
+          font-weight: bold;
+          font-size: 18px;
+          p {
+            color: rgb(0, 0, 0);
+            span {
+              font-size: 24px;
+              padding-left: 5px;
+              cursor: pointer;
+              color: #237BFF;
+            }
+          }
+        }
+      }
+    }
+  }
+}

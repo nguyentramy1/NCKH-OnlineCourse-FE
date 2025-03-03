@@ -1,0 +1,87 @@
+.header-container {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  justify-content: space-between;
+  height: 16vh;
+  padding: 0 20px 0 5px;
+  position: relative;
+
+  .LogoWeb {
+    cursor: pointer;
+    margin-left: 10px;
+    max-height: 44px;
+    /* Để logo tự co theo chiều cao của header */
+    object-fit: contain;
+    /* Đảm bảo toàn bộ ảnh hiển thị mà không bị cắt */
+  }
+
+  .Loading-cover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+
+    &.active {
+      opacity: 1;
+      z-index: 1000;
+    }
+
+    .modal {
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+  }
+
+  .btn-control {
+    transition: all 0.3s linear;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    justify-content: space-between;
+
+    p {
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .btn{
+      transition: all 0.3s linear;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+     .btn-login{
+      width: 116px;
+      height: 46px;
+      background-color: #ffffff;
+      .label{
+        color: #000000;
+        font-size: 16px;
+      }
+     }
+     .btn-signup{
+      width: 116px;
+      height: 46px;
+      background-color: #0166FF;
+      border-radius: 40px;
+      .label{
+        color: #ffffff;
+        font-size: 16px;
+      }
+     }
+
+    }
+
+   
+  }
+}

@@ -1,0 +1,95 @@
+.Noti {
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    width: 100%;
+    visibility: hidden;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
+
+    &.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    &.close {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .modal {
+      position: relative;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      max-width: 100%;
+      width: 400px;
+      transition: transform 0.3s ease;
+      top: 100px;
+
+      &.open {
+        transform: translateY(-100px);
+      }
+
+      &.close {
+        transform: translateY(100px);
+      }
+
+      h1 {
+        font-size: 18px;
+        color: #003e5b;
+        border-bottom: 1px solid #ccc;
+        padding: 10px 20px;
+      }
+
+      .form-input {
+        display: flex;
+        justify-content: space-between;
+        max-height: 300px;
+        padding-left: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+
+        h2 {
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          font-size: 14px;
+          font-weight: 400;
+        }
+      }
+
+      .form-btn {
+        display: flex;
+        margin-top: 10px;
+        justify-content: end;
+        align-items: center;
+        padding: 10px 20px;
+        gap: 8px;
+        .btn-exit {
+          width: 100px;
+          background-color: #dfe1e2;
+          &:hover {
+            background-color: #ccc;
+          }
+          .label {
+            color: rgb(0, 97, 144);
+          }
+        }
+
+        .btn-delete {
+          width: 100px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,171 @@
+.Import {
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
+
+    &.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    &.close {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      max-width: 100%;
+      transform: translateY(-20px);
+      transition: transform 0.3s ease;
+      width: 500px;
+
+      &.open {
+        transform: translateY(-100px);
+      }
+
+      &.close {
+        transform: translateY(0);
+      }
+
+      h1 {
+        font-size: 18px;
+        color: #003e5b;
+        border-bottom: 1px solid #ccc;
+        padding: 10px 20px;
+      }
+
+      .form-input {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 10px;
+        justify-content: flex-start;
+        max-height: 500px;
+        height: 350px;
+        .drop-file {
+          display: flex; // Sử dụng Flexbox
+          justify-content: center; // Căn giữa theo chiều ngang
+          align-items: center; // Căn giữa theo chiều dọc
+          text-align: center;
+          flex-direction: column; // Sắp xếp theo cột
+          margin: 20px;
+
+          height: 400px;
+          width: 410px;
+          border: 2px dashed gray;
+          border-radius: 5px;
+
+          .icon-import {
+            mask-image: url(./assets/7191951.png);
+            mask-size: cover;
+            width: 100px;
+            aspect-ratio: 1/1;
+            background-color: #003e5b;
+            margin-bottom: 10px; // Khoảng cách giữa icon và input
+            transform: rotateZ(180deg);
+          }
+
+          input {
+            display: none; // Ẩn ô nhập liệu
+          }
+
+          .custom-btn {
+            margin-top: 10px; // Khoảng cách giữa input và button
+            background-color: #ffff;
+            width: 200px;
+
+            .label {
+              font-size: 30px;
+              color: #009ae3;
+              text-decoration: underline; // Thêm gạch chân
+            }
+          }
+
+          .custom-btn:hover {
+            background-color: #cac5c5;
+          }
+          .fomat {
+            font-size: 20px;
+            color: rgba(38, 36, 36, 0.4);
+          }
+        }
+        .export-fomatfile {
+          position: relative;
+          top: -30px;
+          left: 20px;
+          display: flex; // Sử dụng Flexbox
+          align-items: center; // Căn giữa theo chiều dọc
+          margin-top: 10px; // Thêm khoảng cách nếu cần
+
+          .icon-export {
+            display: flex;
+            mask-image: url(./assets/download.png);
+            mask-size: contain; // Đảm bảo kích thước icon đúng
+            width: 20px; // Kích thước icon
+            height: 20px; // Chiều cao icon
+            background-color: #003e5b;
+            margin-right: 10px; // Khoảng cách giữa icon và button
+          }
+
+          .export-button {
+            background-color: #ffff;
+            cursor: pointer;
+
+            p {
+              font-size: 17px;
+              color: #009ae3;
+              text-decoration: underline; // Gạch chân
+            }
+          }
+        }
+        .file-name {
+          position: relative;
+          font-size: 18px;
+          color: #003e5b;
+          left: 20px;
+          top: -30px;
+        }
+      }
+
+      .form-btn {
+        display: flex;
+        margin-top: 10px;
+        justify-content: end;
+        align-items: center;
+        padding: 10px 20px;
+        gap: 8px;
+
+        .btn-exit {
+          width: 100px;
+          background-color: #dfe1e2;
+          &:hover {
+            background-color: #ccc;
+          }
+          .label {
+            color: rgb(0, 97, 144);
+          }
+        }
+
+        .btn-save {
+          width: 100px;
+        }
+      }
+    }
+  }
+}

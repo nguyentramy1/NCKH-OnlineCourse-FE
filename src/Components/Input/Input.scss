@@ -1,0 +1,37 @@
+.input-container {
+  background-color: white;
+  border: 1px solid rgb(209, 208, 208);
+  align-items: center;
+  display: flex;
+  border-radius: 8px;
+  height: 38px;
+
+  input {
+    font-size: 14px;
+    width: 100%;
+    border: none;
+    background-color: white;
+    &:focus {
+      outline: none;
+    }
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  img {
+    height: 24px;
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+}
+
+.not-disable {
+  &:hover {
+    border-color: #007bb6;
+  }
+}
+
+.input-focus {
+  border-color: #005c88;
+}
