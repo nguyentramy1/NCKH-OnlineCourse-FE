@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Profile } from "../../AxiosConfig/DataType";
 
 const initialState: Profile = {
-  unique_name: "",
+  fullname: "",
   userId: "",
 };
 
@@ -14,10 +14,8 @@ const profileSlice = createSlice({
       state.userId = action.payload;
     },
     setUnique_name: (state, action: PayloadAction<string>) => {
-      state.unique_name = action.payload;
+      state.fullname = action.payload;
     },
-    
-   
   },
 });
 

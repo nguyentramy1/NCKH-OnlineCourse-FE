@@ -30,11 +30,9 @@ const DeleteWarningALL: React.FC<Props> = ({
   const [Noti, setNoti] = useState<string>("");
   const handleDeleteConfirmed = () => {
     // console.log("Dữ liệu được chọn để xóa:", selectedIds);
-    if (dataType === "bảng lương") {
-      deleteSalary();
-    } else if (id && dataType !== "bảng lương") {
-      DeleteEmployee(id);
-    }
+  
+      deleteAll();
+   
     onClose();
   };
   const dataforSalary = {
@@ -43,62 +41,34 @@ const DeleteWarningALL: React.FC<Props> = ({
   const dataforDetail = {
     employeeIds: selectedIds,
   };
-  const deleteSalary = async () => {
+  const deleteAll = async () => {
     setTokenHeader(sessionStorage.getItem("token"));
-    try {
-      const response = (await apiService.deleteSalary(
-        dataforSalary,
-      )) as unknown as apiResponse<nullData>;
-      if (!response) {
-        throw new Error("Network response was not ok");
-      }
-      onClose();
+    // try {
+    //   const response = (await apiService.deleteAll(
+    //     dataforSalary,
+    //   )) as unknown as apiResponse<nullData>;
+    //   if (!response) {
+    //     throw new Error("Network response was not ok");
+    //   }
+    //   onClose();
 
-      // Gọi action để hiển thị thông báo
-      dispatch(
-        noticeActions.setNotificationSuccess("Xoá bảng lương thành công"),
-      );
-      dispatch(noticeActions.setIsShowNoticeSuccess(true));
-      // dispatch(setMessage("Xoá bảng lương thành công"));
-      // dispatch(setIsVisible(true));
-    } catch (error) {
-      console.error("Lỗi delete bảng lương:", error);
-      // Sử dụng type assertion cho error
-      dispatch(noticeActions.setNotification("Xoá  nhân viên thành công"));
-      dispatch(noticeActions.setIsShowNotice(true));
-    } finally {
-    }
+    //   // Gọi action để hiển thị thông báo
+    //   dispatch(
+    //     noticeActions.setNotificationSuccess("Xoá thành công"),
+    //   );
+    //   dispatch(noticeActions.setIsShowNoticeSuccess(true));
+    //   // dispatch(setMessage("Xoá thành công"));
+    //   // dispatch(setIsVisible(true));
+    // } catch (error) {
+    //   console.error("Lỗi delete:", error);
+    //   // Sử dụng type assertion cho error
+    //   dispatch(noticeActions.setNotification("Xoá thành công"));
+    //   dispatch(noticeActions.setIsShowNotice(true));
+    // } finally {
+    // }
   };
 
-  const DeleteEmployee = async (id: number) => {
-    setTokenHeader(sessionStorage.getItem("token"));
-    try {
-      const response = (await apiService.deleteSalaryDetail(
-        id,
-        dataforDetail,
-      )) as unknown as apiResponse<nullData>;
-
-      if (!response) {
-        throw new Error("Network response was not ok");
-      }
-      onClose();
-
-      dispatch(
-        noticeActions.setNotificationSuccess("Xoá  nhân viên thành công"),
-      );
-      dispatch(noticeActions.setIsShowNoticeSuccess(true));
-      // dispatch(setMessage("Xoá  nhân viên thành công"));
-      // dispatch(setIsVisible(true));
-    } catch (error) {
-      console.error("Lỗi delete nhân viên trong chi tiết bảng lương:", error);
-      // Sử dụng type assertion cho error
-
-      dispatch(noticeActions.setNotification(String(error)));
-      dispatch(noticeActions.setIsShowNotice(true));
-      // dispatch(setIsVisible(true));
-    } finally {
-    }
-  };
+  
 
   return (
     <div className="Noti">

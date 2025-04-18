@@ -7,24 +7,22 @@ export interface DataLoginType {
   refreshToken: string;
   accessToken: string;
   fullName: string;
+  role: string;
 }
-export interface AuthInfor  {
+export interface AuthInfor {
   isAuth: boolean;
   info: DataLoginType | null;
   role: string;
-
 }
-export interface Profile  {
-  unique_name: string;
+export interface Profile {
+  fullname: string;
   userId: string;
 }
 
-///////////
 export type apiResponse<T> = {
-  success: boolean;
-  code: number;
+  statusCode: string;
   message: string;
-  result: T;
+  data: T;
 };
 
 export type apiResponseListData<T> = {
@@ -96,50 +94,21 @@ export interface infoType {
   departmentId?: string;
   password?: string;
 }
-
-export interface Department {
-  departmentId: number;
-  departmentName: string;
-  active?: boolean;
-}
-
-export interface SalaryPeriod {
-  salaryPeriodId: number;
-  period: string;
-  active: boolean;
-}
-
-export interface Salary {
-  salaryId: number;
-  name: string;
-  departmentName: string;
-  period: string;
-}
-export interface SalaryDetail {
-  employeeId: number;
-  employeeName: string;
-  budget: number;
-  workDay: number | null;
-  totalSalary: number | null;
-}
-
-export interface employee {
-  employeeId: number;
-  employeeName: string;
-  budget?: string;
+export interface UserProfile {
+  id: string;
+  avatar: string;
+  status: number;
+  firstName: string;
+  lastName: string;
   email: string;
-  department: Department;
-  active: boolean;
-}
-export interface listEmployeeInDepart<T> {
-  departmentName: string;
-  departmentId: string;
-  employees: T[];
-}
-export interface Employee {
-  employeeName: string;
-  department: string;
-  employeeId: number;
-  email: string;
-  budget: number;
+  phoneNumber: string;
+  dateOfBirth: string;
+  gender: number;
+  address: string;
+  bio: string;
+  language: string;
+  education: string;
+  skill: string;
+  experience: string;
+  certificate: string;
 }

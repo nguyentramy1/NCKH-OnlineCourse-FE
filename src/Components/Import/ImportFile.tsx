@@ -61,25 +61,25 @@ const UploadXLSX: React.FC<Props> = ({ onClose, isOpen, salaryID }) => {
   };
 
   const handleFileUpload = (file: File, salaryId: string) => {
-    console.log(fileName);
-    apiService
-      .ImportFile(file, salaryId)
-      .then((response) => {
-        console.log("Tải lên thành công:", response.data);
-        dispatch(
-          noticeActions.setNotificationSuccess("Tải lên bảng lương thành công"),
-        );
-        dispatch(noticeActions.setIsShowNoticeSuccess(true));
-      })
-      .catch((error) => {
-        console.error("Có lỗi xảy ra:", error);
-        dispatch(
-          noticeActions.setNotification(
-            typeof error === "string" ? error : "Có lỗi xảy ra",
-          ),
-        );
-        dispatch(noticeActions.setIsShowNotice(true));
-      });
+    // console.log(fileName);
+    // apiService
+    //   .ImportFile(file, salaryId)
+    //   .then((response) => {
+    //     console.log("Tải lên thành công:", response.data);
+    //     dispatch(
+    //       noticeActions.setNotificationSuccess("Tải lên bảng lương thành công"),
+    //     );
+    //     dispatch(noticeActions.setIsShowNoticeSuccess(true));
+    //   })
+    //   .catch((error) => {
+    //     console.error("Có lỗi xảy ra:", error);
+    //     dispatch(
+    //       noticeActions.setNotification(
+    //         typeof error === "string" ? error : "Có lỗi xảy ra",
+    //       ),
+    //     );
+    //     dispatch(noticeActions.setIsShowNotice(true));
+    //   });
   };
   const Import = () => {
     if (file) {
@@ -90,34 +90,34 @@ const UploadXLSX: React.FC<Props> = ({ onClose, isOpen, salaryID }) => {
     onClose();
   };
   const exportFomatFile = async () => {
-    try {
-      const response = await apiService.DownloadFomatfile();
-      console.log(response);
-      if (!(response instanceof Blob)) {
-        throw new Error("Response is not a Blob.");
-      }
+    // try {
+    //   const response = await apiService.DownloadFomatfile();
+    //   console.log(response);
+    //   if (!(response instanceof Blob)) {
+    //     throw new Error("Response is not a Blob.");
+    //   }
 
-      const blob = response; // Gán blob từ response
+    //   const blob = response; // Gán blob từ response
 
-      const url = window.URL.createObjectURL(blob); // Tạo URL từ blob
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "Tập tin mẫu.xlsx"; // Đặt tên file
-      document.body.appendChild(a);
-      a.click(); // Tải file xuống
-      a.remove(); // Xóa thẻ <a> sau khi tải xong
-      window.URL.revokeObjectURL(url); // Giải phóng URL
-      dispatch(noticeActions.setNotificationSuccess("Tải file mẫu thành công"));
-      dispatch(noticeActions.setIsShowNoticeSuccess(true));
-    } catch (error) {
-      console.error("Lỗi Export file mẫu:", error);
-      dispatch(
-        noticeActions.setNotification(
-          typeof error === "string" ? error : "Có lỗi xảy ra",
-        ),
-      );
-      dispatch(noticeActions.setIsShowNotice(true));
-    }
+    //   const url = window.URL.createObjectURL(blob); // Tạo URL từ blob
+    //   const a = document.createElement("a");
+    //   a.href = url;
+    //   a.download = "Tập tin mẫu.xlsx"; // Đặt tên file
+    //   document.body.appendChild(a);
+    //   a.click(); // Tải file xuống
+    //   a.remove(); // Xóa thẻ <a> sau khi tải xong
+    //   window.URL.revokeObjectURL(url); // Giải phóng URL
+    //   dispatch(noticeActions.setNotificationSuccess("Tải file mẫu thành công"));
+    //   dispatch(noticeActions.setIsShowNoticeSuccess(true));
+    // } catch (error) {
+    //   console.error("Lỗi Export file mẫu:", error);
+    //   dispatch(
+    //     noticeActions.setNotification(
+    //       typeof error === "string" ? error : "Có lỗi xảy ra",
+    //     ),
+    //   );
+    //   dispatch(noticeActions.setIsShowNotice(true));
+    // }
   };
   const HandleExportFomatFile = () => {
     exportFomatFile();

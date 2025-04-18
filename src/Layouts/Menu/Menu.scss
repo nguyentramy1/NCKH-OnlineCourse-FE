@@ -1,5 +1,5 @@
 .menu-container-open {
-  width: 310px;
+  width: 250px; /* Đồng bộ với MainRouter.scss */
   transition: all 0.3s ease;
   height: 100%;
   border-right: 1px solid #ccc;
@@ -7,7 +7,6 @@
   flex-direction: column;
   background-color: white;
   justify-content: space-between;
-
 
   .menu-open {
     width: 100%;
@@ -63,17 +62,13 @@
       }
 
       .submenu-open {
-        transition:
-          height 0.3s linear,
-          transform 0.3s linear;
+        transition: height 0.3s linear, transform 0.3s linear;
         margin-left: 25px;
         transform: translateY(-19px);
         height: fit-content;
 
         .overlay {
-          transition:
-            height 0.3s linear,
-            transform 0.3s linear;
+          transition: height 0.3s linear, transform 0.3s linear;
           width: 2px;
           height: 43px;
           border-left: 2px solid #ccc;
@@ -126,9 +121,7 @@
       }
 
       .submenu-close {
-        transition:
-          height 0.3s linear,
-          transform 0.3s linear;
+        transition: height 0.3s linear, transform 0.3s linear;
         overflow: hidden;
         height: none;
         margin-left: 25px;
@@ -136,9 +129,7 @@
         white-space: nowrap;
 
         .overlay {
-          transition:
-            height 0.3s linear,
-            transform 0.3s linear;
+          transition: height 0.3s linear, transform 0.3s linear;
           width: 2px;
           height: 0px;
           border-left: 2px solid #ccc;
@@ -214,9 +205,7 @@
     background-color: #fff;
 
     .menu-item {
-      transition:
-        height 0.3s linear,
-        transform 0.3s linear;
+      transition: height 0.3s linear, transform 0.3s linear;
 
       .menu-title {
         transition: all linear 0.2s;
@@ -251,10 +240,7 @@
           background-color: #e9e9e9;
 
           .label {
-            transition:
-              transform 0.2s linear,
-              width 0.2s linear,
-              opacity 0.5s;
+            transition: transform 0.2s linear, width 0.2s linear, opacity 0.5s;
             display: flex;
             align-items: center;
             height: 40px;
@@ -279,9 +265,7 @@
       }
 
       .submenu-close {
-        transition:
-          height 0.3s linear,
-          transform 0.3s linear;
+        transition: height 0.3s linear, transform 0.3s linear;
         overflow: hidden;
         height: none;
         transform: translateY(-19px);
@@ -289,9 +273,7 @@
         margin-left: 25px;
 
         .overlay {
-          transition:
-            height 0.3s linear,
-            transform 0.3s linear;
+          transition: height 0.3s linear, transform 0.3s linear;
           width: 2px;
           height: 0px;
           border-left: 2px solid #ccc;
@@ -356,5 +338,18 @@
       padding: 16px;
       transform: rotateY(180deg);
     }
+  }
+}
+
+/* Media queries để hỗ trợ responsive trên mobile */
+@media (max-width: 480px) {
+  .menu-container-open,
+  .menu-container-closed {
+    width: 100%; /* Chiếm toàn bộ chiều rộng trên mobile */
+  }
+
+  .menu-open,
+  .menu-closed {
+    max-height: calc(100vh - 3.5rem); /* Tránh tràn nội dung */
   }
 }

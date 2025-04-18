@@ -27,79 +27,18 @@ const Warning: React.FC<Props> = ({
 
   const handleOnchange = () => {
     console.log(iditem);
-    if (dataType === "bảng lương") {
-      deleteSalary();
-    } else if (id && dataType !== "bảng lương") {
-      DeleteEmployee(id);
-    }
+   
+      deleteItem();
+    
     onClose();
   };
-  const dataforSalary = {
-    salaryIds: iditem,
+  const datafordelete = {
+    data: iditem,
   };
-  const dataforDetail = {
-    employeeIds: iditem,
-  };
-  const deleteSalary = async () => {
-    setTokenHeader(sessionStorage.getItem("token"));
-    try {
-      const response = (await apiService.deleteSalary(
-        dataforSalary,
-      )) as unknown as apiResponse<nullData>;
-      if (!response) {
-        throw new Error("Network response was not ok");
-      }
-      onClose();
-
-      // Gọi action để hiển thị thông báo
-      dispatch(
-        noticeActions.setNotificationSuccess("Xoá bảng lương thành công"),
-      );
-      dispatch(noticeActions.setIsShowNoticeSuccess(true));
-      // dispatch(setMessage("Xoá bảng lương thành công"));
-      // dispatch(setIsVisible(true));
-    } catch (error) {
-      console.error("Lỗi delete bảng lương:", error);
-      // Sử dụng type assertion cho error
-      dispatch(
-        noticeActions.setNotification("Xoá bảng lương không thành công"),
-      );
-      dispatch(noticeActions.setIsShowNotice(true));
-    } finally {
-    }
+  const deleteItem= async () => {
+    
   };
 
-  const DeleteEmployee = async (id: number) => {
-    setTokenHeader(sessionStorage.getItem("token"));
-    try {
-      const response = (await apiService.deleteSalaryDetail(
-        id,
-        dataforDetail,
-      )) as unknown as apiResponse<nullData>;
-
-      if (!response) {
-        throw new Error("Network response was not ok");
-      }
-      onClose();
-
-      dispatch(
-        noticeActions.setNotificationSuccess("Xoá  nhân viên thành công"),
-      );
-      dispatch(noticeActions.setIsShowNoticeSuccess(true));
-      // dispatch(setMessage("Xoá  nhân viên thành công"));
-      // dispatch(setIsVisible(true));
-    } catch (error) {
-      console.error("Lỗi delete nhân viên trong chi tiết bảng lương:", error);
-      // Sử dụng type assertion cho error
-
-      dispatch(
-        noticeActions.setNotification("Xoá  nhân viên không thành công"),
-      );
-      dispatch(noticeActions.setIsShowNotice(true));
-      // dispatch(setIsVisible(true));
-    } finally {
-    }
-  };
 
   return (
     <div className="Noti">

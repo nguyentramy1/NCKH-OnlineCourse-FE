@@ -21,7 +21,14 @@ const SignupPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
-  const { validUser, validPass, validConfirmPass,validEmail,validFullname, isValidFieldsSignup } = useLogin();
+  const {
+    validUser,
+    validPass,
+    validConfirmPass,
+    validEmail,
+    validFullname,
+    isValidFieldsSignup,
+  } = useLogin();
   const [showError, setShowError] = useState(false);
 
   const handleOnchangeUser = (e: string) => {
@@ -45,20 +52,20 @@ const SignupPage: React.FC = () => {
     setShowError(false);
   };
 
-  const data= {
+  const data = {
     username: username,
     fullName: fullname,
     email: email,
     password: password,
-    confirmPassword: comfirmpassword 
-  }
+    confirmPassword: comfirmpassword,
+  };
   const handleSignup = async () => {
-    if (!isValidFieldsSignup(username, password, fullname,comfirmpassword, email )) {
-      
+    if (
+      !isValidFieldsSignup(username, password, fullname, comfirmpassword, email)
+    ) {
       return;
     }
 
-    
     // if (username.trim() === "") {
     //   setError("Yêu cầu nhập đầy đủ tên tài khoản!");
     //   setShowError(true);
@@ -69,19 +76,20 @@ const SignupPage: React.FC = () => {
     //   return;
     // }
     try {
-          const signup =
-            (await apiService.signup(data)) as unknown as apiResponse<nullData>;
-          // if (isLogout.code === 200) {
-          //   console.log("Đăng xuất thành công!");
-          //   sessionStorage.removeItem("token");
-          //   sessionStorage.removeItem("refreshToken");
-          // } else {
-          //   console.log("Token không đúng!");
-          // }
-          navigate("/login");
-        } catch {
-          alert("Có lỗi xảy ra!");
-        }
+      const signup = (await apiService.signup(
+        data
+      )) as unknown as apiResponse<nullData>;
+      // if (isLogout.code === 200) {
+      //   console.log("Đăng xuất thành công!");
+      //   sessionStorage.removeItem("token");
+      //   sessionStorage.removeItem("refreshToken");
+      // } else {
+      //   console.log("Token không đúng!");
+      // }
+      navigate("/login");
+    } catch {
+      alert("Có lỗi xảy ra!");
+    }
     setLoading(false);
   };
   const handleNavigate = () => {
@@ -105,15 +113,15 @@ const SignupPage: React.FC = () => {
       </div>
       <div className="form-login">
         <div className="ImgLogin">
-        <img src={ImgLogin} alt="logo" />
+          <img src={ImgLogin} alt="logo" />
         </div>
       </div>
       <div className="form-signup">
         <div className="modal-login">
-        <div className="logoLogin">
+          <div className="logoLogin">
             <span>Sign up and start learning</span>
           </div>
-         
+
           <div className="input-area">
             <div className="input-field">
               <div className="username">
@@ -124,7 +132,9 @@ const SignupPage: React.FC = () => {
                   value={fullname}
                   onEnterPress={handleSignup}
                 />
-                <div className={`tooltip ${validFullname ? "visible" : "hidden"}`}>
+                <div
+                  className={`tooltip ${validFullname ? "visible" : "hidden"}`}
+                >
                   {validFullname}
                 </div>
               </div>
@@ -152,37 +162,39 @@ const SignupPage: React.FC = () => {
                   {validEmail}
                 </div>
               </div>
-              
-              
             </div>
             <div className="password-container">
-                  <div className="password" style={{ position: "relative" }}>
-                    <p>Password</p>
-                    <Input
-                      onChange={handleOnchangePassword}
-                      placeHolder="Password"
-                      value={password}
-                      onEnterPress={handleSignup}
-                      type="password"
-                    />
-                    <div className={`tooltip ${validPass ? "visible" : "hidden"}`}>
-                      {validPass}
-                    </div>
-                  </div>
-                  <div className="password" style={{ position: "relative" }}>
-                    <p>Comfirm Password</p>
-                    <Input
-                      onChange={OnchangeConfirmPassword}
-                      placeHolder="Comfirm Password"
-                      value={comfirmpassword}
-                      onEnterPress={handleSignup}
-                      type="password"
-                    />
-                    <div className={`tooltip ${validConfirmPass ? "visible" : "hidden"}`}>
-                      {validConfirmPass}
-                    </div>
-                  </div>
+              <div className="password" style={{ position: "relative" }}>
+                <p>Password</p>
+                <Input
+                  onChange={handleOnchangePassword}
+                  placeHolder="Password"
+                  value={password}
+                  onEnterPress={handleSignup}
+                  type="password"
+                />
+                <div className={`tooltip ${validPass ? "visible" : "hidden"}`}>
+                  {validPass}
+                </div>
               </div>
+              <div className="password" style={{ position: "relative" }}>
+                <p>Comfirm Password</p>
+                <Input
+                  onChange={OnchangeConfirmPassword}
+                  placeHolder="Comfirm Password"
+                  value={comfirmpassword}
+                  onEnterPress={handleSignup}
+                  type="password"
+                />
+                <div
+                  className={`tooltip ${
+                    validConfirmPass ? "visible" : "hidden"
+                  }`}
+                >
+                  {validConfirmPass}
+                </div>
+              </div>
+            </div>
           </div>
           <div className="btn-container">
             <div className="btn-login">
@@ -193,12 +205,10 @@ const SignupPage: React.FC = () => {
               />
             </div>
             <div className="link-btn">
-            <p >
-            Already have an account? 
-              <span onClick={handleNavigate}>
-              Log in
-              </span>
-            </p>
+              <p>
+                Already have an account?
+                <span onClick={handleNavigate}>Log in</span>
+              </p>
             </div>
           </div>
         </div>

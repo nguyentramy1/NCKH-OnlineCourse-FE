@@ -1,9 +1,10 @@
 .main-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh; /* Sử dụng min-height để tránh tràn nội dung */
   font-family: Arial, sans-serif;
   overflow-x: hidden;
+
   .Loading-cover {
     position: fixed;
     top: 0;
@@ -16,31 +17,93 @@
     justify-content: center;
     opacity: 0;
     transition: opacity 0.3s ease;
+
     &.active {
       opacity: 1;
       z-index: 1000;
     }
 
     .modal {
-      padding: 20px;
+      padding: 2rem; /* Sử dụng rem để co giãn */
       border-radius: 8px;
       text-align: center;
     }
   }
-}
 
-.content {
-  position: relative; //để hiển thị tooltip menu
-  display: flex;
-  flex: 1;
-  height: calc(100vh - 55px);
-  
-}
+  .content {
+    position: relative;
+    display: flex;
+    flex: 1;
+    min-height: calc(
+      100vh - 3.5rem
+    ); /* Điều chỉnh theo chiều cao header (55px ≈ 3.5rem) */
+  }
 
-.menu {
-  background-color: #f4f4f4;
-}
+  .main-menu {
+    background-color: #f4f4f4;
+    width: 250px; /* Chiều rộng mặc định cho máy tính */
+    transition: width 0.3s ease; /* Chuyển đổi mượt mà cho toggle trên mobile */
+  }
 
-.main {
-  flex: 1; /* Chiếm toàn bộ không gian còn lại */
+  .main {
+    flex: 1;
+    overflow-y: auto; /* Cho phép cuộn nội dung */
+  }
+
+  .menu-toggle {
+    display: none; /* Ẩn mặc định */
+    position: fixed;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: 1001;
+    padding: 0.5rem 1rem;
+    background-color: #237bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  /* Máy tính bảng (max-width: 768px) */
+  @media (max-width: 768px) {
+    .main-menu {
+      width: 200px; /* Menu nhỏ hơn một chút */
+    }
+
+    .content {
+      min-height: calc(100vh - 3rem); /* Điều chỉnh cho header nhỏ hơn */
+    }
+  }
+
+  /* Điện thoại (max-width: 480px) */
+  @media (max-width: 480px) {
+    .menu-toggle {
+      display: block; /* Hiển thị trên điện thoại */
+    }
+
+    .main-menu {
+      width: 100%; /* Menu chiếm toàn bộ chiều rộng hoặc ẩn */
+      position: absolute;
+      top: 3.5rem; /* Dưới header */
+      left: 0;
+      z-index: 999;
+      display: none; /* Ẩn mặc định, toggle qua state */
+      &.active {
+        display: block; /* Hiển thị khi toggle */
+      }
+    }
+
+    .content {
+      flex-direction: column; /* Xếp chồng nội dung theo chiều dọc */
+      min-height: calc(100vh - 3rem);
+    }
+
+    .main {
+      width: 100%; /* Toàn bộ chiều rộng */
+    }
+
+    .Loading-cover .modal {
+      padding: 1rem; /* Padding nhỏ hơn */
+    }
+  }
 }

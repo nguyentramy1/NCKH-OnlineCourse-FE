@@ -8,38 +8,38 @@ import { useDispatch } from "react-redux";
 import { menuActions } from "../../Reduxs/OptionsMenu/OptionsMenuSlice";
 import { useAppSelector } from "../../store";
 
-const Menu: React.FC = () => {
+// Định nghĩa interface cho props của Menu
+interface MenuProps {
+  className?: string; // className là tùy chọn
+}
+
+const Menu: React.FC<MenuProps> = ({ className }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [openIndexes, setOpenIndexes] = useState<number[]>([]);
   const [selectedSubItemIndexes, setSelectedSubItemIndexes] = useState<
     number[]
-  >([]); // Mảng để lưu chỉ số subItem được chọn cho từng menu
+  >([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const currentMenuOption = useAppSelector(
-    (state) => state.menuStore.indexOption,
+    (state) => state.menuStore.indexOption
   );
-
-  const userRole = useAppSelector((state) => state.authStore.role); 
-  
+  const userRole = useAppSelector((state) => state.authStore.role);
 
   const menuItems = useMenuItems();
-  const filteredMenuItems = filterMenuItemsByRole(
-    menuItems,
-    userRole ,
-  );
+  const filteredMenuItems = filterMenuItemsByRole(menuItems, userRole);
 
   const handleMenuOptions = (index: number) => {
     const item = filteredMenuItems[index];
     setIsOpen(true);
     if (item.subItems && item.subItems.length > 0) {
-      // Nếu có subItems thì toggle mở/đóng
       setOpenIndexes((prev) =>
-        prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+        prev.includes(index)
+          ? prev.filter((i) => i !== index)
+          : [...prev, index]
       );
     } else if (item.path) {
-      // Nếu không có subItems, điều hướng trực tiếp
       console.log("Điều hướng đến:", item.path);
       navigate(item.path);
       dispatch(menuActions.setIndexOption(index));
@@ -47,48 +47,37 @@ const Menu: React.FC = () => {
       console.log("Lỗi: Không có đường dẫn để điều hướng!");
     }
   };
-  
-  //  const toggleMenuOptions = (index: number) => {
-  //     if (openIndexes.includes(index)) {
-  //       setOpenIndexes(openIndexes.filter((i) => i !== index));
-  //     } else {
-  //       setOpenIndexes([...openIndexes, index]);
-  //       setIsOpen(true);
-  //     }
-  //   };
- 
 
   const handleSubItemClick = (
     path: string,
     index: number,
-    subIndex: number,
+    subIndex: number
   ) => {
     navigate(path);
     dispatch(menuActions.setIndexOption(index));
-
-    // Cập nhật chỉ số của subItem được chọn cho menu cụ thể
     setSelectedSubItemIndexes((prev) => {
-      // Tạo một mảng mới với tất cả giá trị là null
       const newSelectedIndexes = Array(filteredMenuItems.length).fill(null);
-      newSelectedIndexes[index] = subIndex; // Lưu chỉ số subItem cho menu chính tương ứng
+      newSelectedIndexes[index] = subIndex;
       return newSelectedIndexes;
     });
   };
 
   const toggleMenuBottom = () => {
     if (isOpen) {
-      setOpenIndexes([]); 
-      // setSelectedSubItemIndexes([]); // Reset khi đóng menu
+      setOpenIndexes([]);
     }
     setIsOpen((prev) => !prev);
-    
     if (!isOpen) {
       setOpenIndexes([currentMenuOption ? currentMenuOption : 0]);
     }
   };
 
   return (
-    <div className={`menu-container-${isOpen ? "open" : "closed"}`}>
+    <div
+      className={`menu-container-${isOpen ? "open" : "closed"} ${
+        className || ""
+      }`}
+    >
       <div className={`menu-${isOpen ? "open" : "closed"}`}>
         {filteredMenuItems.map((item, index) => (
           <div key={index} className="menu-item">
@@ -105,7 +94,7 @@ const Menu: React.FC = () => {
                   openIndexes.includes(index) ? "icon-open" : "icon-close"
                 }`}
               >
-             {item.arrow === true && <img src={Arrow} alt="arrow" />}
+                {item.arrow === true && <img src={Arrow} alt="arrow" />}
               </span>
             </div>
 
@@ -120,7 +109,7 @@ const Menu: React.FC = () => {
                     openIndexes.includes(index) && item.subItems
                       ? "open"
                       : "close"
-                  } `}
+                  }`}
                 >
                   {item.subItems.map((subItem, subIndex) => (
                     <div
@@ -131,10 +120,9 @@ const Menu: React.FC = () => {
                           : "close"
                       }`}
                     >
-                    {subIndex < item.subItems?.length! - 1 && (
-                      <div className="overlay" />
-                    )}
-
+                      {subIndex < item.subItems?.length! - 1 && (
+                        <div className="overlay" />
+                      )}
                       <div
                         className={`title-text-${
                           openIndexes.includes(index) && item.subItems

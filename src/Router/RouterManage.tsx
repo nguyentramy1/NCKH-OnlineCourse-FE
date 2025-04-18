@@ -4,11 +4,11 @@ import SignUpPage from "../Views/Login/signup";
 import ComingSoon from "../Views/ComingSoon/ComingSoon";
 import { useAppSelector } from "../store";
 import ErrorPage from "../Views/Error/error-page";
-import ListProject from "../Views/AdminScreen/ProjectManagement/ListProject";
 import Home from "../Views/UserScreen/Home/Home";
+import Profile from "../Views/Profile/Profile";
 const routerManage = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const role = useAppSelector((state) => state.authStore.info?.fullName);// này là role không phải fullname
+  const role = useAppSelector((state) => state.authStore.info?.fullName); // này là role không phải fullname
 
   const routerAdmin = [
     {
@@ -32,11 +32,19 @@ const routerManage = () => {
       element: <ComingSoon />,
     },
     {
-      path: "/list-project",
-      element: <ListProject />,
-    }
+      path: "/ProfileMember",
+      element: <Profile />,
+    },
+    {
+      path: "/Home",
+      element: <Home />,
+    },
   ];
   const routerUser = [
+    {
+      path: "/ProfileMember",
+      element: <Profile />,
+    },
     {
       path: "*",
       element: <ErrorPage />,
@@ -57,7 +65,7 @@ const routerManage = () => {
     {
       path: "/Home",
       element: <Home />,
-    }
+    },
   ];
 
   const routerLogin = [
@@ -72,7 +80,7 @@ const routerManage = () => {
     {
       path: "/signup",
       element: <SignUpPage />,
-    }
+    },
   ];
 
   return { routerLogin, routerAdmin, routerUser };

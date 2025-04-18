@@ -15,7 +15,7 @@ import Button from "../../Components/Button/Button";
 const Header = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const fullname = useAppSelector((state) => state.ProfileStore.unique_name);
+  const fullname = useAppSelector((state) => state.ProfileStore.fullname);
   const [confirmLogout, setConfirmLogout] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
@@ -64,21 +64,56 @@ const Header = () => {
       />
       <div className="btn-control">
         <div className="btn">
-        <Button onClick={()=>{}} label= {"Home"} className="btn-login" ></Button>
-        <Button onClick={()=>{}} label= {"About us"} className="btn-login" ></Button>
-        <Button onClick={()=>{}} label= {"Courses"} className="btn-login" ></Button>
-        <Button onClick={()=>{}} label= {"Instructors"} className="btn-login" ></Button>
-        <Button onClick={()=>{}} label= {"Events"} className="btn-login" ></Button>
-        <Button onClick={()=>{}} label= {"Contact Us"} className="btn-login" ></Button>
+          <Button
+            onClick={() => {}}
+            label={"Home"}
+            className="btn-login"
+          ></Button>
+          <Button
+            onClick={() => {}}
+            label={"About us"}
+            className="btn-login"
+          ></Button>
+          <Button
+            onClick={() => {}}
+            label={"Courses"}
+            className="btn-login"
+          ></Button>
+          <Button
+            onClick={() => {}}
+            label={"Instructors"}
+            className="btn-login"
+          ></Button>
+          <Button
+            onClick={() => {}}
+            label={"Events"}
+            className="btn-login"
+          ></Button>
+          <Button
+            onClick={() => {}}
+            label={"Contact Us"}
+            className="btn-login"
+          ></Button>
         </div>
       </div>
       <div className="btn-control">
-        
         <div className="btn" onClick={handleProfile}>
-          <Button onClick={()=>{}} label= {"Login"} className="btn-login" ></Button>
-          <Button onClick={()=>{}} label= {"Sign Up"} className="btn-signup" ></Button>
+          <Button
+            onClick={() => {
+              navigate("/login");
+            }}
+            label={"Login"}
+            className="btn-login"
+          ></Button>
+          <Button
+            onClick={() => {
+              navigate("/signup");
+            }}
+            label={"Sign Up"}
+            className="btn-signup"
+          ></Button>
         </div>
-        
+
         {isLoading && (
           <div className={`Loading-cover ${isLoading ? "active" : ""}`}>
             {isLoading && (
@@ -88,7 +123,6 @@ const Header = () => {
             )}
           </div>
         )}
-       
       </div>
     </div>
   );

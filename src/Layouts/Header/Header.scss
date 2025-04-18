@@ -54,34 +54,185 @@
       font-size: 16px;
     }
 
-    .btn{
+    .btn {
       transition: all 0.3s linear;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-     .btn-login{
-      width: 116px;
-      height: 46px;
-      background-color: #ffffff;
-      .label{
-        color: #000000;
-        font-size: 16px;
+      .btn-login {
+        width: 116px;
+        height: 46px;
+        background-color: #ffffff;
+        .label {
+          color: #000000;
+          font-size: 16px;
+        }
       }
-     }
-     .btn-signup{
-      width: 116px;
-      height: 46px;
-      background-color: #0166FF;
-      border-radius: 40px;
-      .label{
-        color: #ffffff;
-        font-size: 16px;
+      .btn-signup {
+        width: 116px;
+        height: 46px;
+        background-color: #0166ff;
+        border-radius: 40px;
+        .label {
+          color: #ffffff;
+          font-size: 16px;
+        }
       }
-     }
+    }
+  }
+  .account-control {
+    transition: all 0.3s linear;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    gap: 50px;
 
+    p {
+      color: rgb(0, 0, 0);
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .Cart-label {
+      transition: all 0.3s linear;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      .ImgCart {
+        mask-image: url(../../Assets/Image/cart.svg);
+        mask-size: cover;
+        width: 32px;
+        height: auto;
+        background: rgb(0, 0, 0);
+        aspect-ratio: 1;
+        margin: 5px;
+        margin-left: 10px;
+      }
+    }
+    .account-label {
+      transition: all 0.3s linear;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      // img {
+      //   margin-right: 3px;
+      // }
+
+      .ImgAccount {
+        mask-image: url(../../Assets/Image/user-profile-circle.svg);
+        mask-size: cover;
+        width: 32px;
+        height: auto;
+        background: rgb(0, 0, 0);
+        aspect-ratio: 1;
+        margin: 5px;
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+.wrap {
+  position: fixed;
+  top: 0;
+  left: 50px;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &.close {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .form-container {
+    position: absolute;
+    top: 85px; // Hiển thị form ngay bên dưới button
+    right: 60px;
+    width: 250px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    z-index: 1000;
+    border-radius: 8px;
+    display: block;
+    transition: transform 0.3s ease;
+
+    &.open {
+      transform: translateY(20px);
     }
 
-   
+    &.close {
+      transform: translateY(0);
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .delete {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background-color: #ffff;
+        transition: background-color 0.5s ease;
+        .btn {
+          display: flex;
+          width: 100%;
+          border-radius: 0px;
+          height: auto;
+          background-color: transparent;
+          border-bottom: 1px solid #000000;
+          .label {
+            font-size: 20px;
+            color: #000000;
+          }
+        }
+        padding: 10px;
+        border-radius: 8px;
+        .disabled {
+          pointer-events: none; /* Không cho phép các sự kiện chuột */
+          opacity: 0.5; /* Làm mờ màu sắc */
+        }
+      }
+      .delete:hover {
+        background-color: #c6c4c4;
+      }
+      .logout-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        .logoutIcon {
+          mask-image: url(../../Assets/Image/logout.svg);
+          mask-size: cover;
+          width: 16px;
+          height: auto;
+          background: rgb(0, 0, 0);
+          aspect-ratio: 1;
+          margin: 10px;
+          margin-left: 10px;
+        }
+      }
+    }
   }
 }
