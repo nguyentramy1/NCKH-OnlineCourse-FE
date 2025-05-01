@@ -10,11 +10,17 @@ import { authActions } from "../Reduxs/Auth/AuthSlice";
 import { apiService } from "../AxiosConfig/apiService";
 import { setTokenHeader } from "../AxiosConfig/axiosConfig";
 import Loading from "../Components/AnimationLoading/Loading";
-import { DataLoginType, apiLoginResponse } from "../AxiosConfig/DataType";
+import {
+  DataLoginType,
+  apiLoginResponse,
+  apiResponse,
+} from "../AxiosConfig/DataType";
 import ReactDOM from "react-dom";
 import Notification from "../Components/NotifiicationForm";
 import { jwtDecode } from "jwt-decode";
 import { profileActions } from "../Reduxs/UserInfor/ProfileSlice";
+import { loadingActions } from "../Reduxs/LoadingSlice";
+import Footer from "../Layouts/Footer/Footer";
 
 const MainRouter: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -30,24 +36,27 @@ const MainRouter: React.FC = () => {
     setTokenHeader(refreshToken);
 
     if (refreshToken) {
-      // Sửa từ 'אם' thành 'if'
       try {
-        setLoading(true);
+        dispatch(loadingActions.setloading(true));
         const response = (await apiService.refresh({
-          refreshToken, // TypeScript sẽ đảm bảo refreshToken là string
-        })) as unknown as apiLoginResponse<DataLoginType>;
+          refreshToken: refreshToken,
+        })) as unknown as apiResponse<DataLoginType>;
         if (response.statusCode === "Success") {
           dispatch(authActions.setAuth(true));
           dispatch(authActions.setInfo(response.data));
+
           const info = response.data;
           const token = response.data.accessToken;
           const decodedToken = jwtDecode<{
             unique_name: string;
             userId: string;
           }>(token);
-          setTokenHeader(token || "");
-          dispatch(authActions.setRole(response.data.fullName));
+
+          setTokenHeader(token ? token : "");
+          dispatch(authActions.setRole(response.data.role.toLowerCase()));
           dispatch(profileActions.setUnique_name(response.data.fullName));
+          dispatch(profileActions.setUserId(decodedToken.userId));
+
           sessionStorage.setItem("refreshToken", response.data.refreshToken);
           dispatch(authActions.setAuth(true));
           dispatch(authActions.setInfo(info));
@@ -58,11 +67,11 @@ const MainRouter: React.FC = () => {
         dispatch(authActions.setAuth(false));
         setTokenHeader(null);
       } finally {
-        setLoading(false);
+        dispatch(loadingActions.setloading(false));
         setInitCheckLogin(false);
       }
     } else {
-      setLoading(false);
+      dispatch(loadingActions.setloading(false));
       setInitCheckLogin(false);
     }
   };
@@ -89,20 +98,17 @@ const MainRouter: React.FC = () => {
           </div>
         )}
       </div>
-
       {!initCheckLogin ? (
         isAuth ? (
           role === "admin" ? (
             <>
-              <HeaderLogin />
-              <button
-                className="menu-toggle"
-                onClick={() => setMenuOpen(!menuOpen)}
-                style={{ display: window.innerWidth <= 480 ? "block" : "none" }}
-              >
-                {menuOpen ? "Đóng Menu" : "Mở Menu"}
-              </button>
+              <div className="header">
+                <HeaderLogin />
+              </div>
               <div className="content">
+                <div className={`menu`}>
+                  <Menu />
+                </div>
                 <div className="main">
                   <Routes>
                     {routerAdmin.map((route, i) => (
@@ -111,6 +117,7 @@ const MainRouter: React.FC = () => {
                   </Routes>
                 </div>
               </div>
+              <Footer /> {/* Di chuyển Footer ra ngoài .content và .main */}
             </>
           ) : (
             <>
@@ -136,11 +143,15 @@ const MainRouter: React.FC = () => {
         ) : (
           <>
             <Header />
-            <Routes>
-              {routerLogin.map((route, i) => (
-                <Route {...route} key={i} />
-              ))}
-            </Routes>
+            <div className="content-login">
+              <div className="main">
+                <Routes>
+                  {routerLogin.map((route, i) => (
+                    <Route {...route} key={i} />
+                  ))}
+                </Routes>
+              </div>
+            </div>
           </>
         )
       ) : (

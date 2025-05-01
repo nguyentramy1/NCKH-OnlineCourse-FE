@@ -1,0 +1,68 @@
+footer {
+  display: flex;
+  justify-content: space-between; /* Căn đều 3 cột */
+  align-items: flex-start; /* Căn trên cùng */
+  width: 100%;
+  margin: 0 auto; /* Căn giữa footer */
+  padding: 40px 20px; /* Khoảng cách trên/dưới và trái/phải */
+  background-color: #f3f3f3; /* Nền trắng */
+  font-family: "Manrope", "Roboto", sans-serif; /* Áp dụng font Manrope */
+}
+
+.footer-section {
+  flex: 1; /* Mỗi cột chiếm đều không gian */
+  margin-right: 20px; /* Khoảng cách giữa các cột */
+
+  &:last-child {
+    margin-right: 0; /* Bỏ margin cho cột cuối */
+  }
+
+  h4 {
+    font-size: 18px;
+    font-weight: 600; /* Manrope 600 */
+    color: #0e0e0f;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: 14px;
+    font-weight: 400; /* Manrope 400 */
+    color: #7f8490;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+}
+
+.footer-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  img {
+    width: 180px; /* Điều chỉnh kích thước logo */
+    height: 180px;
+  }
+
+  span {
+    font-size: 32px;
+    font-weight: 700; /* Manrope 700 */
+    color: #0e0e0f;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  footer {
+    flex-direction: column; /* Xếp cột dọc trên mobile */
+    padding: 20px;
+  }
+
+  .footer-section {
+    margin-right: 0;
+    margin-bottom: 30px; /* Khoảng cách giữa các cột trên mobile */
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Header.scss";
-import LogoHeader from "../../Assets/Image/LogoText.svg";
+import LogoHeader from "../../Assets/Image/Logo.svg";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
@@ -10,8 +10,6 @@ const Header = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const fullname = useAppSelector((state) => state.ProfileStore.fullname);
-  const [confirmLogout, setConfirmLogout] = useState(false);
-  const [isLoading, setLoading] = useState(false);
   const [showForm, setShowForm] = useState(false);
 
   const handleProfile = () => {
@@ -24,13 +22,26 @@ const Header = () => {
 
   return (
     <div className="header-container">
-      <img
-        className="LogoWeb"
-        src={LogoHeader}
-        alt="Logo_"
-        onClick={handleGoHome}
-      />
-      <div className="btn-control">
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "10px",
+          justifyContent: "center",
+          alignItems: "center",
+          marginLeft: "10px",
+        }}
+      >
+        <img
+          className="LogoWeb"
+          src={LogoHeader}
+          alt="Logo_"
+          onClick={handleGoHome}
+        />
+        <span style={{ fontWeight: "600", fontSize: "32px" }}> Course AI</span>
+      </div>
+
+      {/* <div className="btn-control">
         <div className="btn">
           <Button
             onClick={() => {
@@ -65,7 +76,7 @@ const Header = () => {
             className="btn-login"
           ></Button>
         </div>
-      </div>
+      </div> */}
 
       <div className="account-control">
         <div className="Cart-label" onClick={() => {}}>

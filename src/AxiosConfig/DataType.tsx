@@ -101,14 +101,40 @@ export interface UserProfile {
   firstName: string;
   lastName: string;
   email: string;
-  phoneNumber: string;
+  phoneNumber: string | null;
   dateOfBirth: string;
   gender: number;
-  address: string;
-  bio: string;
-  language: string;
+  address: string | null;
+  bio: string | null;
+  language: string | null;
   education: string;
   skill: string;
-  experience: string;
-  certificate: string;
+  experience: string | null;
+  certificate: string | null;
+}
+
+export interface Course {
+  id: string;
+  categoryId: string;
+  image: string;
+  title: string;
+  description: string;
+  price: number;
+  instructorInfo: string;
+  level: number;
+  contentVideo: string;
+  video: string;
+  duration: string;
+}
+export type ResponeList<T> = {
+  items: T[];
+  pageNumber: number;
+  totalPages: number;
+  totalCount: number;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+};
+export interface Category {
+  id: string;
+  name: string;
 }

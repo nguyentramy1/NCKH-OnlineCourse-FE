@@ -6,6 +6,8 @@ import { useAppSelector } from "../store";
 import ErrorPage from "../Views/Error/error-page";
 import Home from "../Views/UserScreen/Home/Home";
 import Profile from "../Views/Profile/Profile";
+import Course from "../Views/Course/CourseDetail";
+import ListCourse from "../Views/Course/ListCourse";
 const routerManage = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const role = useAppSelector((state) => state.authStore.info?.fullName); // này là role không phải fullname
@@ -17,11 +19,11 @@ const routerManage = () => {
     },
     {
       path: "/login",
-      element: <Navigate to={"/ListProject"} />,
+      element: <Navigate to={"/Home"} />,
     },
     {
       path: "/signup",
-      element: <Navigate to={"/ListProject"} />,
+      element: <Navigate to={"/Home"} />,
     },
     {
       path: "/MyProject",
@@ -39,6 +41,14 @@ const routerManage = () => {
       path: "/Home",
       element: <Home />,
     },
+    {
+      path: "/course/:id",
+      element: <Course />,
+    },
+    {
+      path: "/list-course",
+      element: <ListCourse />,
+    },
   ];
   const routerUser = [
     {
@@ -51,11 +61,11 @@ const routerManage = () => {
     },
     {
       path: "/login",
-      element: <Navigate to={"/comingsoon"} />,
+      element: <Navigate to={"/Home"} />,
     },
     {
       path: "/signup",
-      element: <Navigate to={"/comingsoon"} />,
+      element: <Navigate to={"/Home"} />,
     },
     {
       path: "/comingsoon",

@@ -1,0 +1,161 @@
+.course-detail-container {
+  display: flex;
+  flex-direction: column; /* Xếp dọc để course-actions nằm dưới */
+  justify-content: center;
+  align-items: center;
+  background-color: #eff4fc;
+  padding: 20px 0; /* Thêm padding trên và dưới để tạo khoảng cách */
+  min-height: 100%; /* Đảm bảo container chiếm toàn bộ chiều cao */
+
+  .course-detail {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    width: 90vw; /* Chiếm 90% chiều rộng viewport */
+    max-width: 90vw; /* Đảm bảo không vượt quá 90vw */
+    margin: 0 auto; /* Căn giữa card */
+    gap: 16px;
+    position: relative; /* Để course-price và course-actions có thể dùng position: absolute */
+    padding-bottom: 100px; /* Thêm padding dưới để tránh che nội dung */
+
+    .course-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .course-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #0e0e0f;
+        margin: 0;
+      }
+
+      .course-meta {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        .course-duration {
+          font-size: 16px;
+          color: #7f8490;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+
+          .clock-icon {
+            color: #888;
+          }
+        }
+      }
+
+      .course-author {
+        font-size: 14px;
+        color: #0e0e0f;
+        margin: 0;
+      }
+
+      .course-description {
+        font-size: 20px;
+        color: #0e0e0f;
+        line-height: 1.5;
+        margin: 0;
+        max-height: 120px; /* Giới hạn chiều cao tối đa (tương đương khoảng 4 dòng) */
+        overflow: hidden; /* Ẩn phần vượt quá */
+        display: -webkit-box;
+        -webkit-line-clamp: 4; /* Giới hạn tối đa 4 dòng */
+        -webkit-box-orient: vertical;
+        text-overflow: ellipsis; /* Thêm dấu ... khi bị ẩn */
+      }
+    }
+
+    .course-image {
+      flex-shrink: 0;
+      img {
+        width: 451px;
+        height: 276px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+    }
+
+    .course-price {
+      position: absolute; /* Cố định ở dưới cùng, ngay trên course-actions */
+      bottom: 90px; /* Cách đáy 60px để nằm trên course-actions */
+      left: 16px; /* Căn lề trái cùng với padding của course-detail */
+      right: 16px; /* Căn lề phải cùng với padding của course-detail */
+      font-size: 36px;
+      font-weight: 700;
+      color: #0166ff;
+      font-weight: 600;
+
+      .currency {
+        text-decoration: underline;
+      }
+    }
+
+    .course-actions {
+      display: flex;
+      gap: 8px;
+      position: absolute; /* Cố định ở dưới cùng của course-detail */
+      bottom: 16px; /* Khoảng cách từ dưới lên */
+      left: 16px; /* Căn lề trái cùng với padding của course-detail */
+      right: 16px; /* Căn lề phải cùng với padding của course-detail */
+      justify-content: flex-start; /* Căn trái các nút */
+
+      .buy-now-btn {
+        background-color: #0166ff;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .add-to-cart-btn {
+        background-color: transparent;
+        color: #0166ff;
+        border: 1px solid #0166ff;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+
+    /* Responsive cho mobile */
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 120px; /* Tăng padding trên mobile để tránh che nút và giá */
+
+      .course-image {
+        display: none; /* Ẩn hình ảnh trên mobile */
+      }
+
+      .course-description {
+        max-height: 90px; /* Giảm chiều cao trên mobile (khoảng 3 dòng) */
+        -webkit-line-clamp: 3; /* Giới hạn 3 dòng trên mobile */
+      }
+
+      .course-price {
+        bottom: 70px; /* Điều chỉnh vị trí trên mobile */
+        font-size: 28px; /* Giảm kích thước chữ trên mobile */
+      }
+
+      .course-actions {
+        flex-direction: column; /* Xếp dọc các nút trên mobile */
+        gap: 12px;
+        bottom: 10px; /* Giảm khoảng cách trên mobile */
+        left: 16px;
+        right: 16px;
+      }
+    }
+  }
+}

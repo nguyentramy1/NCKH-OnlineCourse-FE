@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from "react";
 import "./Input.scss";
-import { Search } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react"; // Import icon từ Lucide
 
 type Props = {
   placeHolder: string;
@@ -13,10 +13,9 @@ type Props = {
   onEnterPress?: () => void;
   type?: string;
   disable?: boolean;
-  as?: "input" | "textarea";
 };
 
-const Input: React.FC<Props> = ({
+const InputPassword: React.FC<Props> = ({
   onChange,
   onChangeNumber,
   placeHolder,
@@ -24,18 +23,17 @@ const Input: React.FC<Props> = ({
   require,
   className = "",
   onEnterPress,
-  type,
+  type = "password",
   disable,
   optional,
-  as = "input", // Mặc định là input
 }) => {
   const [isFocus, setFocus] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
   const onBlur = () => setFocus(false);
   const onFocus = () => setFocus(true);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
 
     if (onChange) {
@@ -44,11 +42,7 @@ const Input: React.FC<Props> = ({
 
     if (onChangeNumber) {
       const numberValue = Number(inputValue);
-      if (!isNaN(numberValue)) {
-        onChangeNumber(numberValue);
-      } else {
-        onChangeNumber(0);
-      }
+      onChangeNumber(!isNaN(numberValue) ? numberValue : 0);
     }
   };
 
@@ -58,40 +52,37 @@ const Input: React.FC<Props> = ({
     }
   };
 
+  const toggleVisibility = () => {
+    setIsVisible((prev) => !prev);
+  };
+
   return (
     <div
       className={`input-container ${disable ? "" : "not-disable"} ${
         isFocus ? "input-focus" : ""
       } ${className ? className : ""}`}
     >
-      <Search className="search-icon" size={20} />
-      {as === "textarea" ? (
-        <textarea
-          onBlur={onBlur}
-          onFocus={onFocus}
-          placeholder={placeHolder}
-          onChange={handleChange}
-          value={value}
-          required={require}
-          disabled={disable}
-          className="custom-textarea"
-        />
-      ) : (
-        <input
-          type={type}
-          onBlur={onBlur}
-          onFocus={onFocus}
-          onKeyDown={handleKeyDown}
-          placeholder={placeHolder}
-          onChange={handleChange}
-          value={value}
-          required={require}
-          disabled={disable}
-        />
-      )}
+      <input
+        type={isVisible ? "text" : "password"}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        onKeyDown={handleKeyDown}
+        placeholder={placeHolder}
+        onChange={handleChange}
+        value={value}
+        required={require}
+        disabled={disable}
+      />
+      <span className="visibility-toggle" onClick={toggleVisibility}>
+        {isVisible ? (
+          <Eye size={20} className="visibility-icon" />
+        ) : (
+          <EyeOff size={20} className="visibility-icon" />
+        )}
+      </span>
       {optional ? optional : <></>}
     </div>
   );
 };
 
-export default Input;
+export default InputPassword;

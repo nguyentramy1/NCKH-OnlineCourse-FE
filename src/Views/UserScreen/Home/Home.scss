@@ -1,99 +1,118 @@
 .home {
-    font-family: Arial, sans-serif;
+  font-family: "Manrope", sans-serif;
 }
 
 .banner img {
-    width: 100%;
-    height: 150px;
-    display: block;
+  width: 100%;
+  height: 150px;
+  display: block;
 }
 
-.projects,
-.news {
-    padding: 20px;
-}
+.projects {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 
-h2 {
-    color: #47E5A8;
-}
+  h2 {
+    color: #000000;
+    font-size: 48px;
+    font-weight: bold;
+    margin: 60px;
+  }
+  .home-button {
+    margin: 60px;
+    .explore-button {
+      height: auto;
+      background-color: #ffd05a; /* Màu vàng giống ảnh */
+      border-radius: 50px; /* Bo góc lớn, hình viên thuốc */
+      border: none; /* Không có viền */
+      font-size: 16px; /* Kích thước chữ */
+      transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu khi hover */
+      .label {
+        color: #000; /* Chữ màu đen */
+        padding: 25px 0px; /* Padding để nút có kích thước hợp lý */
+      }
+      margin: 40px;
+    }
 
+    .explore-button:hover {
+      background-color: #ffc107; /* Màu vàng sáng hơn khi hover */
+    }
+  }
+}
 
 .project-list,
 .news-list {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    margin: 20px;
-    gap: 50px;
-    flex-wrap: nowrap;
-    flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin: 20px;
+  gap: 50px;
+  flex-wrap: nowrap;
+  flex-grow: 1;
 }
 
 .project-list,
 .news-list :hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .project-card,
 .news-card {
-    min-width: 250px;
-    /* Kích thước tối thiểu để cuộn ngang */
-    flex-shrink: 0;
-    border: 1px solid #ddd;
-    padding: 16px;
-    border-radius: 8px;
-    background-color: #fff;
+  min-width: 250px;
+  /* Kích thước tối thiểu để cuộn ngang */
+  flex-shrink: 0;
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #fff;
 }
 
 h3 {
-    color: #47E5A8;
-    font-size: 18px;
+  color: #47e5a8;
+  font-size: 18px;
 }
 
 .project-card,
 .news-card p {
-    font-size: 10px;
-    color: #ccc;
+  font-size: 10px;
+  color: #ccc;
 }
 
-
 .image-placeholder img {
-    width: 100%;
-    height: 150px;
-    background: #ccc;
-    border-radius: 5px;
+  width: 100%;
+  height: 150px;
+  background: #ccc;
+  border-radius: 5px;
 }
 
 footer {
-    position: relative;
-    z-index: 100;
-    background: #f4f4f4;
-    padding: 20px;
-    display: flex;
-    justify-content: space-around;
-    text-align: left;
-}
-
-.footer-section p {
-    align-items: center;
-    display: flex;
+  position: relative;
+  z-index: 100;
+  background: #f4f4f4;
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  text-align: left;
 }
 
 h4 {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .scroll-container {
-    overflow-x: auto;
-    /* Cho phép cuộn ngang */
-    white-space: nowrap;
-    display: flex;
-    padding-bottom: 10px;
+  overflow-x: auto;
+  /* Cho phép cuộn ngang */
+  white-space: nowrap;
+  display: flex;
+  padding-bottom: 10px;
 }
 
 .Call,
 .Location {
-    width: 20px;
-    height: 20px;
-    margin: 5px;
+  width: 20px;
+  height: 20px;
+  margin: 5px;
 }

@@ -7,6 +7,7 @@ import Arrow from "../../Assets/Image/ArrowDown.svg";
 import { useDispatch } from "react-redux";
 import { menuActions } from "../../Reduxs/OptionsMenu/OptionsMenuSlice";
 import { useAppSelector } from "../../store";
+import { ArrowLeft, ChevronDown, ChevronRight, ChevronUp } from "lucide-react";
 
 // Định nghĩa interface cho props của Menu
 interface MenuProps {
@@ -94,7 +95,11 @@ const Menu: React.FC<MenuProps> = ({ className }) => {
                   openIndexes.includes(index) ? "icon-open" : "icon-close"
                 }`}
               >
-                {item.arrow === true && <img src={Arrow} alt="arrow" />}
+                {item.arrow === true && (
+                  <div style={{ paddingRight: "3px" }}>
+                    <ChevronUp size={18} className="arrow-icon" />
+                  </div>
+                )}
               </span>
             </div>
 
@@ -152,7 +157,12 @@ const Menu: React.FC<MenuProps> = ({ className }) => {
         ))}
       </div>
       <div className="icon-bottom-menu">
-        <img src={ToggleMenu} alt="Menu" onClick={toggleMenuBottom} />
+        <ArrowLeft
+          size={24}
+          className="icon"
+          onClick={toggleMenuBottom}
+          color="#0166FF"
+        />
       </div>
     </div>
   );

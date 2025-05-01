@@ -1,20 +1,21 @@
-import PersonsIcon from "../../../Assets/Image/person.png";
-import ListIcon from "../../../Assets/Image/project.svg";
-import ManageDepart from "../../../Assets/Image/my project.svg";
-import Project from "../../../Assets/Image/project.svg"
-import Home from "../../../Assets/Image/home.svg"
-import PJResults from "../../../Assets/Image/pj-result.svg"
-import AllProject from "../../../Assets/Image/file-multiple.svg"
-import User from "../../../Assets/Image/User.svg"
-import Campaign from "../../../Assets/Image/campain.svg"
-import Statistics from "../../../Assets/Image/Statistic.svg"
-
+import {
+  Home,
+  FolderKanban,
+  Folder,
+  List,
+  FileCheck,
+  Files,
+  Users,
+  Book,
+  BookOpen,
+  BookUser,
+  Tag,
+} from "lucide-react";
 interface subItems {
   title: string;
   path: string;
   role?: string;
   icon?: JSX.Element;
-  
 }
 
 export interface MenuItem {
@@ -26,71 +27,113 @@ export interface MenuItem {
   arrow: boolean;
 }
 
-
 export const useMenuItems = (): MenuItem[] => [
   {
     title: "Home",
-    icon: <img src={Home} alt="Home" />,
-    path:"/Home",
-    role:"user",
-    arrow: false
+    icon: <Home size={20} className="menu-icon" color="#0166FF" />,
+    path: "/Home",
+    role: "user",
+    arrow: false,
   },
   {
     title: "Project Management",
-    icon: <img src={Project} alt="Project Management" />,
+    icon: <FolderKanban size={20} className="menu-icon" color="#0166FF" />,
     subItems: [
-      { title: "My Project", path: "/my-project" },
-      { title: "Project Participated", path: "/list-project" },  
+      {
+        title: "My Project",
+        path: "/my-project",
+        icon: <Folder size={16} className="menu-icon" color="#0166FF" />,
+      },
+      {
+        title: "Project Participated",
+        path: "/list-project",
+        icon: (
+          <List
+            size={16}
+            className="menu-icon"
+            color="#0166FF"
+            strokeWidth={3}
+          />
+        ),
+      },
     ],
     role: "User",
-    arrow: true
+    arrow: true,
   },
   {
     title: "Project result",
-    icon: <img src={PJResults} alt="Project result" />,
-    path:"/ProjectResult",
-    role:  "User",
-    arrow: false
+    icon: (
+      <FileCheck
+        size={20}
+        className="menu-icon"
+        color="#0166FF"
+        strokeWidth={3}
+      />
+    ),
+    path: "/ProjectResult",
+    role: "User",
+    arrow: false,
   },
   {
     title: "All project",
-    icon: <img src={AllProject} alt="All project" />,
-    path:"/ProjectResult",
-    role:  "User",
-    arrow: false
+    icon: (
+      <Files size={20} className="menu-icon" color="#0166FF" strokeWidth={3} />
+    ),
+    path: "/ProjectResult",
+    role: "User",
+    arrow: false,
   },
   {
     title: "User Management",
-    icon: <img src={User} alt="User" />,
+    icon: (
+      <Users size={20} className="menu-icon" color="#0166FF" strokeWidth={3} />
+    ),
+    path: "/list-user",
+    role: "Admin",
+    arrow: false,
+  },
+  {
+    title: "Course Management",
+    icon: (
+      <Book size={20} className="menu-icon" color="#0166FF" strokeWidth={3} />
+    ),
     subItems: [
-      { title: "List Account", path: "/list-project" },
+      {
+        title: "List Course",
+        path: "/list-course",
+        icon: (
+          <BookOpen
+            size={16}
+            className="menu-icon"
+            color="#0166FF"
+            strokeWidth={3}
+          />
+        ),
+      },
+      {
+        title: "My Course",
+        path: "/My-course",
+        icon: (
+          <BookUser
+            size={16}
+            className="menu-icon"
+            color="#0166FF"
+            strokeWidth={3}
+          />
+        ),
+      },
     ],
     role: "Admin",
-    arrow: true
+    arrow: true,
   },
   {
-    title: "Project Management",
-    icon: <img src={Project} alt="Project" />,
-    subItems: [
-      { title: "List Project", path: "/list-project" },
-      { title: "My Project", path: "/My-project" },  
-    ],
+    title: "Category Management",
+    icon: (
+      <Tag size={20} className="menu-icon" color="#0166FF" strokeWidth={3} />
+    ),
+    path: "/list-category",
     role: "Admin",
-   arrow: true
-  },
-  {
-    title: "Campaign Management",
-    icon: <img src={Campaign} alt="Campaign" />,
-    subItems: [{ title: "List Campaign", path: "/list-Campaign" }],
-    role:  "Admin",
-    arrow: true
-  },
-  {
-    title: "Statistics management",
-    icon: <img src={Statistics} alt="Statistics" />,
-    subItems: [{ title: "Statistics", path: "/list-Statistics" }],
-    role:  "Admin",
-    arrow: true
+    arrow: false,
   },
 ];
 
@@ -100,7 +143,9 @@ export const filterMenuItemsByRole = (
   userRole: string
 ): MenuItem[] => {
   // Nếu userRole không phải 'admin' hoặc 'user', gán mặc định là 'user'
-  const normalizedRole = ["admin", "user"].includes(userRole.toLowerCase()) ? userRole.toLowerCase() : "user";
+  const normalizedRole = ["admin", "user"].includes(userRole.toLowerCase())
+    ? userRole.toLowerCase()
+    : "user";
   return menuItems
     .filter((item) => item.role.toLowerCase() === normalizedRole) // Lọc mục cha
     .map((item) => ({
@@ -108,7 +153,8 @@ export const filterMenuItemsByRole = (
       subItems: item.subItems
         ? item.subItems.filter(
             (subItem) =>
-              !subItem.role || subItem.role.toLowerCase() === userRole.toLowerCase()
+              !subItem.role ||
+              subItem.role.toLowerCase() === userRole.toLowerCase()
           ) // Lọc subItems
         : undefined,
     }));
