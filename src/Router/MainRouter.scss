@@ -2,8 +2,24 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* Sử dụng min-height để tránh tràn nội dung */
-  font-family: Arial, sans-serif;
+  font-family: "Manrope", sans-serif;
   overflow-x: hidden;
+
+  .header {
+    position: fixed; /* Cố định header ở đầu trang */
+    top: 0;
+    left: 0;
+    width: 100%; /* Chiếm toàn bộ chiều rộng */
+    z-index: 1000; /* Đảm bảo header nằm trên các phần khác */
+    background-color: #fff; /* Nền trắng để tránh nội dung bên dưới lộ ra */
+  }
+  footer {
+    width: 100%;
+    color: #fff; /* Màu chữ footer */
+    padding: 20px;
+    text-align: center;
+    margin-top: auto; /* Đẩy footer xuống dưới cùng */
+  }
 
   .Loading-cover {
     position: fixed;
@@ -33,10 +49,43 @@
   .content {
     position: relative;
     display: flex;
-    flex: 1;
-    min-height: calc(
-      100vh - 3.5rem
-    ); /* Điều chỉnh theo chiều cao header (55px ≈ 3.5rem) */
+    flex: 1; /* Chiếm toàn bộ không gian giữa header và footer */
+    margin-top: 55px; /* Khoảng cách để nội dung không bị che bởi header */
+    // min-height: calc(100vh - 80px - 60px); /* Trừ chiều cao header và footer */
+    margin-left: 55px;
+    .menu {
+      position: fixed; /* Cố định menu ở bên trái */
+      top: 80px;
+      left: 0;
+      height: calc(100vh - 60px); /* Chiều cao menu trừ đi header */
+      background-color: #f4f4f4;
+      z-index: 999; /* Đảm bảo menu nằm dưới header nhưng trên nội dung */
+    }
+    .main {
+      flex: 1;
+      margin-top: 18px;
+      // margin-left: 250px; /* Khoảng cách để nội dung không bị che bởi menu cố định */
+    }
+  }
+  .content-login {
+    position: relative;
+    display: flex;
+    flex: 1; /* Chiếm toàn bộ không gian giữa header và footer */
+    margin-top: 55px; /* Khoảng cách để nội dung không bị che bởi header */
+    // min-height: calc(100vh - 80px - 60px); /* Trừ chiều cao header và footer */
+    margin-left: 55px;
+    .menu {
+      position: fixed; /* Cố định menu ở bên trái */
+      top: 80px;
+      left: 0;
+      height: calc(100vh - 60px); /* Chiều cao menu trừ đi header */
+      background-color: #f4f4f4;
+      z-index: 999; /* Đảm bảo menu nằm dưới header nhưng trên nội dung */
+    }
+    .main {
+      flex: 1;
+      // margin-left: 250px; /* Khoảng cách để nội dung không bị che bởi menu cố định */
+    }
   }
 
   .main-menu {
@@ -45,17 +94,12 @@
     transition: width 0.3s ease; /* Chuyển đổi mượt mà cho toggle trên mobile */
   }
 
-  .main {
-    flex: 1;
-    overflow-y: auto; /* Cho phép cuộn nội dung */
-  }
-
   .menu-toggle {
     display: none; /* Ẩn mặc định */
     position: fixed;
     top: 0.5rem;
     left: 0.5rem;
-    z-index: 1001;
+    z-index: 1001; /* Nằm trên header */
     padding: 0.5rem 1rem;
     background-color: #237bff;
     color: white;
@@ -70,8 +114,15 @@
       width: 200px; /* Menu nhỏ hơn một chút */
     }
 
+    .main {
+      margin-left: 200px; /* Điều chỉnh khoảng cách cho menu nhỏ hơn */
+    }
+
     .content {
-      min-height: calc(100vh - 3rem); /* Điều chỉnh cho header nhỏ hơn */
+      min-height: calc(
+        100vh - 60px - 60px
+      ); /* Điều chỉnh cho header và footer */
+      padding-bottom: 60px; /* Giữ padding trên tablet */
     }
   }
 
@@ -82,9 +133,9 @@
     }
 
     .main-menu {
-      width: 100%; /* Menu chiếm toàn bộ chiều rộng hoặc ẩn */
-      position: absolute;
-      top: 3.5rem; /* Dưới header */
+      width: 100%; /* Menu chiếm toàn bộ chiều rộng */
+      position: fixed; /* Vẫn cố định trên mobile */
+      top: 60px; /* Dưới header */
       left: 0;
       z-index: 999;
       display: none; /* Ẩn mặc định, toggle qua state */
@@ -95,10 +146,13 @@
 
     .content {
       flex-direction: column; /* Xếp chồng nội dung theo chiều dọc */
-      min-height: calc(100vh - 3rem);
+      min-height: calc(100vh - 60px - 60px); /* Trừ header và footer */
+      margin-top: 60px; /* Đảm bảo nội dung không bị che bởi header */
+      padding-bottom: 60px; /* Giữ padding trên mobile */
     }
 
     .main {
+      margin-left: 0; /* Bỏ margin-left vì menu không cố định bên trái trên mobile */
       width: 100%; /* Toàn bộ chiều rộng */
     }
 

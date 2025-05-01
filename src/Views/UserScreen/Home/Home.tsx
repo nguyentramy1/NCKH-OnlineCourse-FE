@@ -1,78 +1,92 @@
 import "./Home.scss";
-import Banner from "../img/Green Creative Save Our Earth Banner - Copy.png";
-import Call from "../img/image 3.svg";
-import Location from "../img/image 4.svg";
+
+import Footer from "../../../Layouts/Footer/Footer";
+import Card from "../../../Components/Card/Card";
+import { useNavigate } from "react-router-dom";
+import useCourseData from "../CourseHook/GetAllCourse";
+import { useEffect } from "react";
+import Button from "../../../Components/Button/Button";
+import Intro from "../../../Layouts/Introduce/intro";
+import { useAppSelector } from "../../../store";
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const {
+    CourseData,
+    loading: projectsLoading,
+    error: projectsError,
+  } = useCourseData();
+
+  // Lấy 6 khóa học mới nhất và chia thành 2 hàng (3 trên, 3 dưới)
+  const latestCourse = CourseData.slice(0, 6);
+  const topCourses = latestCourse.slice(0, 3); // 3 khóa học đầu
+  const bottomCourses = latestCourse.slice(3, 6); // 3 khóa học tiếp theo
+
+  const handleCardClick = (id: string) => {
+    navigate(`/course/${id}`);
+  };
+  const role = useAppSelector((state) => state.authStore.role);
+
   return (
     <div className="home">
-      {/* Banner
-            <div className="banner">
-                <img src={Banner} alt="Banner" />
-            </div> */}
-
-      {/* Recently Projects */}
-      {/* Recently Projects */}
+      <Intro />
       <section className="projects">
-        <h2>Recently project</h2>
+        <h2>Duyệt qua các khóa học phổ biến của chúng tôi</h2>
+        {/* Scroll container cho 3 khóa học đầu */}
         <div className="scroll-container">
           <div className="project-list">
-            {[...Array(4)].map((_, index) => (
-              <div key={index} className="project-card">
-                <div className="image-placeholder">
-                  <img src="" alt="" />
-                </div>
-                <h3>Title</h3>
-                <p>Start date:</p>
-                <p>End date:</p>
-                <p>Address:</p>
-              </div>
-            ))}
+            {projectsLoading ? (
+              <p>Loading projects...</p>
+            ) : projectsError ? (
+              <p>{projectsError}</p>
+            ) : (
+              topCourses.map((Course) => (
+                <Card
+                  key={Course.id}
+                  data={Course}
+                  onClick={() =>
+                    navigate(`/course/${Course.id}`, {
+                      state: { id: Course.id }, // Chỉ gửi id
+                    })
+                  }
+                />
+              ))
+            )}
           </div>
         </div>
-      </section>
-
-      {/* News */}
-      <section className="news">
-        <h2>News</h2>
+        {/* Scroll container cho 3 khóa học tiếp theo */}
         <div className="scroll-container">
-          <div className="news-list">
-            {[...Array(4)].map((_, index) => (
-              <div key={index} className="news-card">
-                <div className="image-placeholder">
-                  <img src="" alt="" />
-                </div>
-                <h3>Title</h3>
-                <p>Owner: </p>
-              </div>
-            ))}
+          <div className="project-list">
+            {projectsLoading ? (
+              <p>Loading projects...</p>
+            ) : projectsError ? (
+              <p>{projectsError}</p>
+            ) : (
+              bottomCourses.map((Course) => (
+                <Card
+                  key={Course.id}
+                  data={Course}
+                  onClick={() =>
+                    navigate(`/course/${Course.id}`, {
+                      state: { id: Course.id }, // Chỉ gửi id
+                    })
+                  }
+                />
+              ))
+            )}
           </div>
+        </div>
+        <div className="home-button">
+          <Button
+            onClick={() => {}}
+            label="Khám phá toàn bộ khóa học"
+            className="explore-button"
+          />
         </div>
       </section>
 
-      {/* Footer */}
-      <footer>
-        <div className="footer-section">
-          <h4>About us</h4>
-          <p>Nhà phát hành</p>
-        </div>
-        <div className="footer-section">
-          <h4>Contact</h4>
-          <p>
-            <img src={Call} alt="" className="Call" /> +84 0245845698
-          </p>
-          <p>
-            <img src={Location} alt="" className="Location"></img> 541 - Thanh
-            Xuân - Hà Nội
-          </p>
-          <p>✉️ Xuanphuongit@gmail.com</p>
-        </div>
-        <div className="footer-section">
-          <h4>More information</h4>
-          <p>🔵 Facebook</p>
-          <p>📷 Instagram</p>
-        </div>
-      </footer>
+      {/* <Footer /> */}
     </div>
   );
 };

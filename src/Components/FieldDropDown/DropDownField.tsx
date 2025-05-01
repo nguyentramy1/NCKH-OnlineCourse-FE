@@ -3,7 +3,7 @@ import "./DropDownField.scss";
 import Button from "../Button/Button";
 import useOnChange from "./hooks/useOnChange";
 import useClickOutSide from "./hooks/useClickOutSide";
-import Remove from "../../Assets/Svg/remove.svg";
+
 import Input from "../Input/Input";
 
 export interface optionType {
@@ -35,13 +35,13 @@ const DropDownField: React.FC<InputDropdownProps> = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [selectedOption, setSelectedOption] = useState<string | undefined>(
-    selected,
+    selected
   );
   const [searchTerm, setSearchTerm] = useState(""); // State để lưu giá trị tìm kiếm
   const { handleOptionSelect, toggleDropdown } = useOnChange(
     setIsDropdownOpen,
     onChange,
-    setSelectedOption,
+    setSelectedOption
   );
   useClickOutSide(dropdownRef, setIsDropdownOpen);
 
@@ -52,7 +52,7 @@ const DropDownField: React.FC<InputDropdownProps> = ({
 
   // Lọc các tùy chọn dựa trên giá trị tìm kiếm
   const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(searchTerm.toLowerCase()),
+    option.label.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -110,14 +110,14 @@ const DropDownField: React.FC<InputDropdownProps> = ({
           ))}
         </ul>
       </div>
-      {unSelect && (
+      {/* {unSelect && (
         <img
           src={Remove}
           alt="remove"
           className={`icon-remove ${selected ? "selected" : "unselect"}`}
           onClick={handleRemoveSelected}
         />
-      )}
+      )} */}
     </>
   );
 };

@@ -53,7 +53,16 @@ const FormShortProfile: React.FC<FormProps> = ({ onClose, isOpen }) => {
       <div className={`form-container ${isOpen ? "open" : "close"}`}>
         <div className="form">
           <div className="delete" onClick={OpenProfile}>
-            <div className="profile-button-container">
+            <div
+              className="profile-button-container"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                gap: "10px",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <Button
                 onClick={OpenProfile}
                 label={"Profile short view"}
@@ -66,8 +75,12 @@ const FormShortProfile: React.FC<FormProps> = ({ onClose, isOpen }) => {
             </div>
           </div>
           <div className={`logout-btn ${isLoading ? "loading" : ""}`}>
-            <div onClick={confirmPopup}>
-              Logout
+            <div
+              onClick={confirmPopup}
+              style={{ display: "flex", flexDirection: "row", gap: "10px" }}
+            >
+              <span>Logout</span>
+
               <div className="logoutIcon" />
             </div>
           </div>

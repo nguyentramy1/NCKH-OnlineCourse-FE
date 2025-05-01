@@ -16,6 +16,7 @@ import { apiResponse, DataLoginType } from "../../AxiosConfig/DataType";
 import { jwtDecode } from "jwt-decode";
 import { useAppSelector } from "../../store";
 import { noticeActions } from "../../Reduxs/Notification/Notification";
+import InputPassword from "../../Components/Input/InputPass";
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -68,7 +69,7 @@ const LoginPage: React.FC = () => {
       console.log("mã giải ", decodedToken.userId);
 
       setTokenHeader(token ? token : "");
-      dispatch(authActions.setRole(response.data.role));
+      dispatch(authActions.setRole(response.data.role.toLowerCase()));
       dispatch(profileActions.setUnique_name(decodedToken.unique_name));
       dispatch(profileActions.setUserId(decodedToken.userId));
       console.log("userId", decodedToken.userId);
@@ -79,7 +80,6 @@ const LoginPage: React.FC = () => {
       dispatch(noticeActions.setNotificationSuccess("Login successful"));
       dispatch(noticeActions.setIsShowNoticeSuccess(true));
     } catch (error: unknown | string) {
-      // Kiểm tra kiểu dữ liệu của error
       if (error instanceof Error) {
         setError(error.message);
       } else {
@@ -112,7 +112,7 @@ const LoginPage: React.FC = () => {
     }
   }, [showError, isShowNoticeSuccess]);
   const handleNavigate = () => {
-    navigate("/signup"); // Điều hướng đến trang "/new-route"
+    navigate("/signup");
   };
   return (
     <div className="login-container">
@@ -157,7 +157,7 @@ const LoginPage: React.FC = () => {
               </div>
               <div className="password" style={{ position: "relative" }}>
                 <p>Password</p>
-                <Input
+                <InputPassword
                   onChange={handleOnchangePassword}
                   placeHolder="Password"
                   value={password}

@@ -3,14 +3,14 @@
   align-items: center;
   background-color: #ffffff;
   justify-content: space-between;
-  height: 16vh;
+  height: 10vh;
   padding: 0 20px 0 5px;
   position: relative;
 
   .LogoWeb {
     cursor: pointer;
-    margin-left: 10px;
-    max-height: 44px;
+    height: 70px;
+    width: auto;
     /* Để logo tự co theo chiều cao của header */
     object-fit: contain;
     /* Đảm bảo toàn bộ ảnh hiển thị mà không bị cắt */
@@ -191,6 +191,7 @@
         cursor: pointer;
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 10px;
         background-color: #ffff;
         transition: background-color 0.5s ease;
@@ -221,7 +222,11 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
-
+        span {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
         .logoutIcon {
           mask-image: url(../../Assets/Image/logout.svg);
           mask-size: cover;

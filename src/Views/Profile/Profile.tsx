@@ -1,39 +1,40 @@
 import "./Profile.scss";
 import { useEffect, useState } from "react";
-import { FaEdit } from "react-icons/fa";
+import { EditOutlined } from "@ant-design/icons"; // Thay FaEdit bằng EditOutlined
 import useUserProfile from "./UseProfile/useUserProfile";
 import { useAppSelector } from "../../store";
-
-import Input from "../../Components/Input/Input";
-import imgDefaul from "../../../Assets/Image/Image-Bg.svg";
-import { Upload, Button } from "antd"; // Thêm UploadChangeParam
+import { Input, Upload, Button, Select } from "antd";
 import { UploadChangeParam } from "antd/es/upload/interface";
-import { UploadOutlined } from "@ant-design/icons"; // Icon tùy chọn
+import { UploadOutlined } from "@ant-design/icons";
 import { apiService } from "../../AxiosConfig/apiService";
 import { useDispatch } from "react-redux";
 import { noticeActions } from "../../Reduxs/Notification/Notification";
 import NoticeSuccess from "../../Components/Notification/SuccessAlert/NoticeSuccess";
 import NoticeError from "../../Components/Notification/ErrorAlert/NoticeError";
-import { Select } from "antd";
+
 interface UserProfileData {
   FirstName: string;
   LastName: string;
   DateOfBirth: string;
   Gender: number | null;
   Address: string;
-  PhoneNumber: string;
-  Email: string;
   Bio: string;
-  Language: string[];
+  Language: string;
   Education: string;
   Skill: string;
+  InterestFields: string;
+  AvatarFile: File | null;
+
+  PhoneNumber: string;
+  Email: string;
   Experience: string;
   Certificate: string;
-  AvatarFile: File | null;
 }
+
 const Profile = () => {
   const userId = useAppSelector((state) => state.ProfileStore.userId);
-  console.log(userId);
+  const dispatch = useDispatch();
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     if (isNaN(date.getTime())) {
@@ -47,7 +48,6 @@ const Profile = () => {
       .padStart(2, "0")}/${date.getFullYear()}`;
   };
 
-  // Hàm định dạng ngày cho input type="date" (YYYY-MM-DD)
   const formatDateForInput = (dateString: string) => {
     const date = new Date(dateString);
     if (isNaN(date.getTime())) {
@@ -58,14 +58,16 @@ const Profile = () => {
       .toString()
       .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
   };
+
   const getIframeUrl = (avatar?: string) => {
-    if (!avatar) return "https://via.placeholder.com/200"; // URL mặc định nếu không có avatar
+    if (!avatar) return "https://via.placeholder.com/150";
     if (avatar.includes("drive.google.com")) {
       const id = avatar.match(/id=([^&]+)/)?.[1];
       return id ? `https://drive.google.com/file/d/${id}/preview` : avatar;
     }
     return avatar;
   };
+
   const { profile, loading, error, refetch } = useUserProfile(userId);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<UserProfileData>({
@@ -74,20 +76,23 @@ const Profile = () => {
     DateOfBirth: "",
     Gender: 2,
     Address: "",
-    PhoneNumber: "",
     Email: "",
     Bio: "",
-    Language: ["Vietnamese"], // Default to array with Vietnamese
+    Language: "",
     Education: "",
+    InterestFields: "",
     Skill: "",
     Experience: "",
     Certificate: "",
     AvatarFile: null,
+    PhoneNumber: "",
   });
+
   const displayGender = (gender: number | null) => {
-    if (gender === null) return "Not specified";
-    return gender === 0 ? "Male" : gender === 1 ? "Female" : "Other";
+    if (gender === null) return "Không xác định";
+    return gender === 0 ? "Nam" : gender === 1 ? "Nữ" : "Khác";
   };
+
   useEffect(() => {
     if (profile) {
       setFormData({
@@ -102,89 +107,73 @@ const Profile = () => {
         PhoneNumber: profile.phoneNumber ?? "",
         AvatarFile: null,
         Education: profile.education ?? "",
+        InterestFields: profile.certificate ?? "", //ch chinh
+        Skill: profile.skill ?? "",
         Experience: profile.experience ?? "",
         Certificate: profile.certificate ?? "",
-        Skill: profile.skill ?? "",
-        Language: profile.language
-          ? profile.language.split(",")
-          : ["Vietnamese"], // Assuming language is stored as comma-separated string
+        Language: profile.language ?? "",
         Bio: profile.bio ?? "",
       });
     }
   }, [profile]);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value ?? "",
-    }));
+  const handleInputChange = (field: keyof UserProfileData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
-  const dispatch = useDispatch();
+
   const EditProfile = async () => {
     try {
-      // Prepare the data object with all required fields
       const data = {
         FirstName: formData.FirstName,
         LastName: formData.LastName,
         DateOfBirth: formData.DateOfBirth,
-        Gender: formData.Gender ?? 2, // Default to 2 if null
+        Gender: formData.Gender ?? 2,
         Address: formData.Address,
         PhoneNumber: formData.PhoneNumber,
         Email: formData.Email,
         Bio: formData.Bio,
-        Language: formData.Language.join(","),
+        Language: formData.Language,
         Education: formData.Education,
+        InterestFields: formData.InterestFields,
         Skill: formData.Skill,
         Experience: formData.Experience,
         Certificate: formData.Certificate,
-        AvatarFile: formData.AvatarFile, // Can be null as per API definition
+        AvatarFile: formData.AvatarFile,
       };
 
-      // Call the API function
       const response = await apiService.editUserProfile(userId, data);
-
-      // Check response success
       if (!response) {
-        throw new Error("Network response was not ok");
+        throw new Error("Phản hồi mạng không thành công");
       }
 
-      // Show success notification
       dispatch(
-        noticeActions.setNotificationSuccess("Profile updated successfully")
+        noticeActions.setNotificationSuccess("Cập nhật hồ sơ thành công")
       );
       dispatch(noticeActions.setIsShowNoticeSuccess(true));
-
-      // Refetch the updated profile data
       refetch();
     } catch (error) {
-      console.error("Error updating profile:", error);
-      let message = "An error occurred!";
+      console.error("Lỗi khi cập nhật hồ sơ:", error);
+      let message = "Đã xảy ra lỗi!";
       if (error instanceof Error) {
         message = error.message;
       }
-      // Show error notification
       dispatch(noticeActions.setNotification(message));
       dispatch(noticeActions.setIsShowNotice(true));
     }
   };
 
   const handleSave = async () => {
-    EditProfile(); // Gọi API để lưu
-    setIsEditing(false); // Thoát chế độ chỉnh sửa nếu thành công
-    // console.log("Dữ liệu:", formData);
+    await EditProfile();
+    setIsEditing(false);
   };
 
   const handleImageChange = (info: UploadChangeParam) => {
-    // console.log("onChange triggered:", info); // Debug toàn bộ info
-    const file = info.fileList[0]?.originFileObj; // Lấy file từ fileList
-    // console.log("Selected file:", file); // Debug file
+    const file = info.fileList[0]?.originFileObj;
     if (file) {
       setFormData((prev) => ({ ...prev, AvatarFile: file }));
     }
   };
-  //thông báo
+
   const errorr = useAppSelector((state) => state.noticeStore.notifiaction);
   const success = useAppSelector(
     (state) => state.noticeStore.notifiactionSuccess
@@ -195,23 +184,26 @@ const Profile = () => {
   const isShowNoticeSuccess = useAppSelector(
     (state) => state.noticeStore.isShowNoticeSuccess
   );
+
   const handleCloseNotice = () => {
     dispatch(noticeActions.setIsShowNotice(false));
     dispatch(noticeActions.setIsShowNoticeSuccess(false));
   };
-  //fetchdata
+
   const [fetched, setFetched] = useState(false);
   const needToFetch = () => {
     if (isShowNoticeSuccess === true) {
       setFetched((e) => !e);
     }
   };
+
   useEffect(() => {
     if (fetched) {
       refetch();
-      setFetched(false); // Reset after fetching
+      setFetched(false);
     }
   }, [fetched]);
+
   useEffect(() => {
     needToFetch();
     setTimeout(() => {
@@ -220,11 +212,11 @@ const Profile = () => {
       dispatch(noticeActions.setNotificationSuccess(null));
       dispatch(noticeActions.setIsShowNoticeSuccess(false));
     }, 10000);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isShowNoticeError, isShowNoticeSuccess]);
-  if (loading) return <p>Loading...</p>;
+
+  if (loading) return <p>Đang tải...</p>;
   if (error) return <p>{error}</p>;
-  if (!formData) return <p>No profile data</p>;
+  if (!formData) return <p>Không có dữ liệu hồ sơ</p>;
 
   return (
     <div className="profile-container">
@@ -247,28 +239,25 @@ const Profile = () => {
       <div className="profile-header">
         <div className="avatar-wrapper">
           {formData.AvatarFile ? (
-            // Nếu người dùng đã chọn ảnh mới thì preview ảnh đó
             <img
               className="avatar-preview"
               src={URL.createObjectURL(formData.AvatarFile)}
-              alt="Preview Avatar"
-              width="300"
-              height="300"
+              alt="Xem trước Avatar"
+              width="150"
+              height="150"
             />
           ) : (
-            // Nếu chưa chọn ảnh thì hiển thị ảnh từ backend (drive.google)
             <iframe
               className="avatar-iframe"
-              width="300"
-              height="300"
+              width="150"
+              height="150"
               src={getIframeUrl(profile?.avatar)}
-              title="Profile Avatar"
+              title="Hình đại diện"
               onError={(e) =>
                 console.log("Lỗi tải iframe từ:", profile?.avatar, e)
               }
             />
           )}
-
           {isEditing && (
             <Upload
               accept="image/*"
@@ -285,109 +274,112 @@ const Profile = () => {
           )}
         </div>
         <h2 className={isEditing ? "centered" : ""}>
-          My profile{" "}
+          Hồ sơ của tôi{" "}
           {!isEditing && (
-            <FaEdit className="edit-icon" onClick={() => setIsEditing(true)} />
+            <EditOutlined
+              className="edit-icon"
+              onClick={() => setIsEditing(true)}
+            />
           )}
         </h2>
       </div>
 
       <div className="profile-section">
-        <h3>Bio</h3>
+        <h3>Giới thiệu</h3>
         {isEditing ? (
           <Input
-            placeHolder="bio"
+            placeholder="Giới thiệu bản thân"
             value={formData.Bio}
-            onChange={(e) => setFormData({ ...formData, Bio: e })}
+            onChange={(e) => handleInputChange("Bio", e.target.value)}
             className="info"
           />
         ) : (
-          <p>{formData.Bio}</p>
+          <p>{formData.Bio || "Chưa có giới thiệu"}</p>
         )}
       </div>
 
       <div className="profile-section">
-        <h3>Personal information</h3>
+        <h3>Thông tin cá nhân</h3>
         <div className="info-grid">
           {isEditing ? (
             <>
               <Input
-                placeHolder="First name"
+                placeholder="Tên"
                 value={formData.FirstName}
-                onChange={(e) => setFormData({ ...formData, FirstName: e })}
+                onChange={(e) => handleInputChange("FirstName", e.target.value)}
                 className="info"
               />
               <Input
-                placeHolder="Last name"
+                placeholder="Họ"
                 value={formData.LastName}
-                onChange={(e) => setFormData({ ...formData, LastName: e })}
+                onChange={(e) => handleInputChange("LastName", e.target.value)}
                 className="info"
               />
               <Input
-                placeHolder="Date of Birth"
+                placeholder="Ngày sinh"
                 type="date"
                 value={formData.DateOfBirth}
-                onChange={(e) => setFormData({ ...formData, DateOfBirth: e })}
+                onChange={(e) =>
+                  handleInputChange("DateOfBirth", e.target.value)
+                }
                 className="info"
               />
-
-              <select
-                name="gender"
+              <Select
                 value={formData.Gender?.toString()}
-                onChange={(e) =>
-                  setFormData({ ...formData, Gender: Number(e.target.value) })
+                onChange={(value) =>
+                  setFormData({ ...formData, Gender: Number(value) })
                 }
+                className="info"
+                placeholder="Giới tính"
               >
-                <option value={0}>Male</option>
-                <option value={1}>Female</option>
-                <option value={2}>Other</option>
-              </select>
-
+                <Select.Option value="0">Nam</Select.Option>
+                <Select.Option value="1">Nữ</Select.Option>
+                <Select.Option value="2">Khác</Select.Option>
+              </Select>
               <Input
-                placeHolder="Email"
+                placeholder="Email"
                 type="email"
                 value={formData.Email}
-                onChange={(e) => setFormData({ ...formData, Email: e })}
+                onChange={(e) => handleInputChange("Email", e.target.value)}
                 className="info"
               />
-
               <Input
-                placeHolder="Phone Number"
+                placeholder="Số điện thoại"
                 value={formData.PhoneNumber}
-                onChange={(e) => setFormData({ ...formData, PhoneNumber: e })}
+                onChange={(e) =>
+                  handleInputChange("PhoneNumber", e.target.value)
+                }
                 className="info"
               />
-
               <Input
-                placeHolder="Address"
+                placeholder="Địa chỉ"
                 value={formData.Address}
-                onChange={(e) => setFormData({ ...formData, Address: e })}
+                onChange={(e) => handleInputChange("Address", e.target.value)}
                 className="info"
               />
             </>
           ) : (
             <>
               <p>
-                <strong>First name:</strong> {formData.FirstName}
+                <strong>Tên:</strong> {formData.FirstName}
               </p>
               <p>
-                <strong>Last name:</strong> {formData.LastName}
+                <strong>Họ:</strong> {formData.LastName}
               </p>
               <p>
-                <strong>Date of birth:</strong>{" "}
-                {formatDate(formData.DateOfBirth)}
+                <strong>Ngày sinh:</strong> {formatDate(formData.DateOfBirth)}
               </p>
               <p>
-                <strong>Gender:</strong> {displayGender(formData.Gender)}
+                <strong>Giới tính:</strong> {displayGender(formData.Gender)}
               </p>
               <p>
                 <strong>Email:</strong> {formData.Email}
               </p>
               <p>
-                <strong>Phone:</strong> {formData.PhoneNumber}
+                <strong>Số điện thoại:</strong> {formData.PhoneNumber}
               </p>
               <p>
-                <strong>Address:</strong> {formData.Address}
+                <strong>Địa chỉ:</strong> {formData.Address}
               </p>
             </>
           )}
@@ -395,92 +387,118 @@ const Profile = () => {
       </div>
 
       <div className="profile-section">
-        <h3>Education, skills and certificate</h3>
+        <h3>Học vấn & Lĩnh vực quan tâm</h3>
         {isEditing ? (
           <>
             <p>
-              <strong>Education:</strong>
+              <strong>Học vấn:</strong>
             </p>
-            <Input
-              placeHolder="Education"
+            <Select
               value={formData.Education}
-              onChange={(e) => setFormData({ ...formData, Education: e })}
+              onChange={(value) => handleInputChange("Education", value)}
               className="info"
-            />
-
+              placeholder="Chọn trình độ học vấn"
+            >
+              <Select.Option value="THCS">THCS</Select.Option>
+              <Select.Option value="THPT">THPT</Select.Option>
+              <Select.Option value="Cao đẳng">Cao đẳng</Select.Option>
+              <Select.Option value="Đại học">Đại học</Select.Option>
+              <Select.Option value="Sau đại học">Sau đại học</Select.Option>
+            </Select>
             <p>
-              <strong>Experience:</strong>
+              <strong>Lĩnh vực quan tâm:</strong>
             </p>
-            <Input
-              placeHolder="Experience"
-              value={formData.Experience}
-              onChange={(e) => setFormData({ ...formData, Experience: e })}
+            <Select
+              mode="multiple"
+              value={formData.InterestFields}
+              onChange={(value) =>
+                setFormData({ ...formData, InterestFields: value })
+              }
               className="info"
-            />
-
-            <p>
-              <strong>Certificate:</strong>
-            </p>
-            <Input
-              placeHolder="Certificate"
-              value={formData.Certificate}
-              onChange={(e) => setFormData({ ...formData, Certificate: e })}
-              className="info"
-            />
-
-            <p>
-              <strong>Skills:</strong>
-            </p>
-            <Input
-              type="text"
-              placeHolder="Skill"
-              value={formData.Skill}
-              onChange={(e) => setFormData({ ...formData, Skill: e })}
-              className="info"
-            />
+              placeholder="Chọn lĩnh vực quan tâm"
+            >
+              <Select.Option value="AI">AI</Select.Option>
+              <Select.Option value="Blockchain">Blockchain</Select.Option>
+              <Select.Option value="Web">Web</Select.Option>
+            </Select>
           </>
         ) : (
           <>
             <p>
-              <strong>Education:</strong> {formData.Education}
+              <strong>Học vấn:</strong> {formData.Education || "Chưa cập nhật"}
             </p>
             <p>
-              <strong>Experience:</strong> {formData.Experience}
-            </p>
-            <p>
-              <strong>Certificate:</strong> {formData.Certificate}
-            </p>
-            <p>
-              <strong>Skills:</strong> {formData.Skill}
+              <strong>Lĩnh vực quan tâm:</strong>{" "}
+              {formData.InterestFields.length > 0
+                ? formData.InterestFields
+                : "Chưa cập nhật"}
             </p>
           </>
         )}
       </div>
 
       <div className="profile-section">
-        <h3>Language</h3>
+        <h3>Kỹ năng & Chứng chỉ</h3>
+        {isEditing ? (
+          <>
+            <p>
+              <strong>Kỹ năng:</strong>
+            </p>
+            <Input
+              placeholder="Kỹ năng"
+              value={formData.Skill}
+              onChange={(e) => handleInputChange("Skill", e.target.value)}
+              className="info"
+            />
+            <p>
+              <strong>Chứng chỉ:</strong>
+            </p>
+            <Input
+              placeholder="Chứng chỉ"
+              value={formData.Certificate}
+              onChange={(e) => handleInputChange("Certificate", e.target.value)}
+              className="info"
+            />
+          </>
+        ) : (
+          <>
+            <p>
+              <strong>Kỹ năng:</strong> {formData.Skill || "Chưa cập nhật"}
+            </p>
+            <p>
+              <strong>Chứng chỉ:</strong>{" "}
+              {formData.Certificate || "Chưa cập nhật"}
+            </p>
+          </>
+        )}
+      </div>
+
+      <div className="profile-section">
+        <h3>Ngôn ngữ</h3>
         {isEditing ? (
           <Select
-            mode="multiple" // Enable multiple selection
+            mode="multiple"
             style={{ width: "100%" }}
             value={formData.Language}
             onChange={(value) => setFormData({ ...formData, Language: value })}
-            placeholder="Select languages"
+            placeholder="Chọn ngôn ngữ"
+            className="info"
           >
-            <Select.Option value="Vietnamese">Vietnamese</Select.Option>
-            <Select.Option value="English">English</Select.Option>
-            <Select.Option value="French">French</Select.Option>
-            {/* Add more language options as needed */}
+            <Select.Option value="Vietnamese">Tiếng Việt</Select.Option>
+            <Select.Option value="English">Tiếng Anh</Select.Option>
+            <Select.Option value="French">Tiếng Pháp</Select.Option>
           </Select>
         ) : (
-          <p>{formData.Language.join(", ")}</p> // Display languages in one line with comma separation
+          <p>
+            {formData.Language.length > 0 ? formData.Language : "Chưa cập nhật"}
+          </p>
         )}
       </div>
 
       {isEditing && (
-        <button className="save-btn" onClick={handleSave}>
-          Done
-        </button>
+        <Button type="primary" className="save-btn" onClick={handleSave}>
+          Hoàn tất
+        </Button>
       )}
     </div>
   );

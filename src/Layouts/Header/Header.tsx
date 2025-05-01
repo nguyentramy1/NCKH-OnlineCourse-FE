@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Header.scss";
-import LogoHeader from "../../Assets/Image/LogoText.svg";
+import LogoHeader from "../../Assets/Image/Logo.svg";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { authActions } from "../../Reduxs/Auth/AuthSlice";
 import { apiService } from "../../AxiosConfig/apiService";
@@ -24,7 +24,7 @@ const Header = () => {
   };
 
   const handleGoHome = () => {
-    navigate("/list");
+    navigate("/Home");
   };
 
   const confirmPopup = () => {
@@ -40,13 +40,6 @@ const Header = () => {
       setTokenHeader(null);
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("refreshToken");
-      // if (isLogout.code === 200) {
-      //   console.log("Đăng xuất thành công!");
-      //   sessionStorage.removeItem("token");
-      //   sessionStorage.removeItem("refreshToken");
-      // } else {
-      //   console.log("Token không đúng!");
-      // }
     } catch {
       alert("Có lỗi xảy ra!");
     }
@@ -56,13 +49,25 @@ const Header = () => {
 
   return (
     <div className="header-container">
-      <img
-        className="LogoWeb"
-        src={LogoHeader}
-        alt="Logo_"
-        onClick={handleGoHome}
-      />
-      <div className="btn-control">
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "10px",
+          justifyContent: "center",
+          alignItems: "center",
+          marginLeft: "10px",
+        }}
+      >
+        <img
+          className="LogoWeb"
+          src={LogoHeader}
+          alt="Logo_"
+          onClick={handleGoHome}
+        />
+        <span style={{ fontWeight: "600", fontSize: "32px" }}> Course AI</span>
+      </div>
+      {/* <div className="btn-control">
         <div className="btn">
           <Button
             onClick={() => {}}
@@ -95,7 +100,7 @@ const Header = () => {
             className="btn-login"
           ></Button>
         </div>
-      </div>
+      </div> */}
       <div className="btn-control">
         <div className="btn" onClick={handleProfile}>
           <Button

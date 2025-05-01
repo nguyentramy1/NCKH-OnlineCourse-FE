@@ -1,0 +1,288 @@
+.Noti {
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    width: 100%;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+
+    &.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    &.close {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .modal-course {
+      display: flex;
+      position: relative;
+      background: white;
+      flex-direction: column;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      max-width: 100%;
+      width: 927px;
+      transition: transform 0.3s ease;
+      top: 150px;
+      height: 600px;
+
+      &.open {
+        transform: translateY(-100px);
+      }
+
+      &.close {
+        transform: translateY(100px);
+      }
+
+      h1 {
+        font-size: 18px;
+        color: #237bff;
+        padding: 10px 20px;
+        font-size: 30px;
+      }
+
+      .form-container {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+
+        .infor-project {
+          flex: 1;
+          font-size: 14px;
+          font-weight: 700;
+          margin-left: 20px;
+          margin-bottom: 5px;
+          margin-right: 5px;
+          max-width: 200px;
+
+          .project-logo {
+            max-width: 200px;
+            max-height: 200px;
+            margin-bottom: 16px; /* Thêm khoảng cách giữa hai Upload */
+
+            img {
+              max-width: 200px;
+              max-height: 200px;
+            }
+          }
+        }
+
+        .form-input {
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          height: auto;
+          margin-right: 20px;
+          justify-content: flex-end;
+          max-height: none;
+          position: relative;
+
+          .input-colum {
+            display: flex;
+            justify-content: flex-end;
+            gap: 45px;
+
+            .input-short {
+              display: flex;
+              flex-direction: column;
+              gap: 15px;
+
+              .item-input {
+                position: relative;
+                h2 {
+                  display: flex;
+                  justify-content: start;
+                  align-items: center;
+                  font-size: 14px;
+                  font-weight: 700;
+                  margin: 2px;
+                  span {
+                    color: red;
+                  }
+                }
+                .input-container {
+                  height: 32px;
+                  width: 195px;
+                  img {
+                    width: 0px;
+                  }
+                  .search-icon {
+                    display: none;
+                  }
+                }
+                .error-message {
+                  position: absolute;
+                  top: 100%;
+                  left: 0;
+                  color: red;
+                  font-size: 12px;
+                  margin-top: 2px;
+                }
+                .input-dropdown {
+                  width: 195px;
+                  position: relative;
+                  .container-dropfield {
+                    .input-show {
+                      height: 32px;
+                      width: 195px;
+                    }
+                  }
+                }
+              }
+            }
+
+            .input-long {
+              display: flex;
+              flex-direction: column;
+              gap: 15px;
+
+              .item-input {
+                h2 {
+                  display: flex;
+                  justify-content: start;
+                  align-items: center;
+                  font-size: 14px;
+                  font-weight: 400;
+                  margin: 2px;
+                  font-weight: 700;
+                }
+                .input-container {
+                  height: 32px;
+                  width: 378px;
+                  img {
+                    width: 0px;
+                  }
+                  .search-icon {
+                    display: none;
+                  }
+                }
+                .input-dropdown {
+                  width: 378px;
+                  position: relative;
+                  .container-dropfield {
+                    .input-show {
+                      height: 32px;
+                      width: 378px;
+                    }
+                  }
+                }
+                .error-message {
+                  position: absolute;
+                  top: 100%;
+                  left: 0;
+                  color: red;
+                  font-size: 12px;
+                  margin-top: 2px;
+                }
+              }
+            }
+          }
+
+          .item-input-description {
+            display: flex;
+            position: relative;
+            left: 60px;
+
+            .description {
+              max-width: 900px;
+              h2 {
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                font-size: 14px;
+                font-weight: 400;
+                margin: 2px;
+                font-weight: 700;
+              }
+              .input-container {
+                height: 80px;
+                width: 622px;
+                img {
+                  width: 0px;
+                }
+                .search-icon {
+                  display: none;
+                }
+                textarea {
+                  height: 70px;
+                  width: 622px;
+                  border: none;
+                  &:focus {
+                    border: none;
+                    outline: none;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .form-btn {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        gap: 8px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin: 20px;
+
+        .btn-exit {
+          width: 100px;
+          background-color: #ffffff;
+          border: 1px solid #237bff;
+          &:hover {
+            background-color: #ccc;
+          }
+          .label {
+            color: #237bff;
+          }
+          &:disabled {
+            background: #71bab2;
+            .label {
+              color: #ffffff;
+            }
+            cursor: not-allowed;
+          }
+        }
+
+        .btn-delete {
+          width: 100px;
+          background-color: #237bff;
+          &:hover {
+            background-color: #237bff;
+          }
+          &:disabled {
+            background: #78acfc;
+            .label {
+              color: #ffffff;
+            }
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+
+  /* Thêm kiểu cho Upload */
+  .custom-upload {
+    border: 2px solid #237bff !important;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+  }
+}

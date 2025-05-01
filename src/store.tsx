@@ -7,7 +7,9 @@ import searchCreateFormReducer from "./Reduxs/FilterTable/searchSliceCreateForm"
 import { noticeReducer } from "./Reduxs/Notification/Notification";
 import { NotiFormReducer } from "./Reduxs/NotiForm/NotificationSlice";
 import { dropDownReducer } from "./Reduxs/FilterTable/DropDownSlice";
-import {profileReducer} from "./Reduxs/UserInfor/ProfileSlice"
+import { profileReducer } from "./Reduxs/UserInfor/ProfileSlice";
+import { loadingReducer } from "./Reduxs/LoadingSlice";
+import { DropDataReducer } from "./Reduxs/OptionsMenu/DropDataState";
 export const store = configureStore({
   reducer: {
     searchStore: searchReducer,
@@ -18,6 +20,8 @@ export const store = configureStore({
     dropData: dropDownReducer,
     NotiFormStore: NotiFormReducer,
     ProfileStore: profileReducer,
+    loadingStore: loadingReducer,
+    DropDataStore: DropDataReducer,
   },
 });
 
