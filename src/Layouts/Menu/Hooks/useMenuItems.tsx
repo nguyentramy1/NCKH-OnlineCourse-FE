@@ -1,16 +1,4 @@
-import {
-  Home,
-  FolderKanban,
-  Folder,
-  List,
-  FileCheck,
-  Files,
-  Users,
-  Book,
-  BookOpen,
-  BookUser,
-  Tag,
-} from "lucide-react";
+import { Home, Users, Book, BookOpen, BookUser, Tag } from "lucide-react";
 interface subItems {
   title: string;
   path: string;
@@ -35,54 +23,7 @@ export const useMenuItems = (): MenuItem[] => [
     role: "user",
     arrow: false,
   },
-  {
-    title: "Project Management",
-    icon: <FolderKanban size={20} className="menu-icon" color="#0166FF" />,
-    subItems: [
-      {
-        title: "My Project",
-        path: "/my-project",
-        icon: <Folder size={16} className="menu-icon" color="#0166FF" />,
-      },
-      {
-        title: "Project Participated",
-        path: "/list-project",
-        icon: (
-          <List
-            size={16}
-            className="menu-icon"
-            color="#0166FF"
-            strokeWidth={3}
-          />
-        ),
-      },
-    ],
-    role: "User",
-    arrow: true,
-  },
-  {
-    title: "Project result",
-    icon: (
-      <FileCheck
-        size={20}
-        className="menu-icon"
-        color="#0166FF"
-        strokeWidth={3}
-      />
-    ),
-    path: "/ProjectResult",
-    role: "User",
-    arrow: false,
-  },
-  {
-    title: "All project",
-    icon: (
-      <Files size={20} className="menu-icon" color="#0166FF" strokeWidth={3} />
-    ),
-    path: "/ProjectResult",
-    role: "User",
-    arrow: false,
-  },
+
   {
     title: "User Management",
     icon: (

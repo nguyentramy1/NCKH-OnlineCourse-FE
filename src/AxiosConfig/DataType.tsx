@@ -138,3 +138,8 @@ export interface Category {
   id: string;
   name: string;
 }
+export interface Option {
+  value: string;
+  label: string;
+  active?: boolean;
+}

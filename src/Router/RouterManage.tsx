@@ -8,6 +8,8 @@ import Home from "../Views/UserScreen/Home/Home";
 import Profile from "../Views/Profile/Profile";
 import Course from "../Views/Course/CourseDetail";
 import ListCourse from "../Views/Course/ListCourse";
+import ListCategory from "../Views/Category/ListCategory";
+import ListUser from "../Views/UserManagement/ListUser";
 const routerManage = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const role = useAppSelector((state) => state.authStore.info?.fullName); // này là role không phải fullname
@@ -48,6 +50,14 @@ const routerManage = () => {
     {
       path: "/list-course",
       element: <ListCourse />,
+    },
+    {
+      path: "/list-category",
+      element: <ListCategory />,
+    },
+    {
+      path: "/list-user",
+      element: <ListUser />,
     },
   ];
   const routerUser = [

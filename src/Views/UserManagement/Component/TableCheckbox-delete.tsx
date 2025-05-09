@@ -5,6 +5,8 @@ import Button from "../../../Components/Button/Button";
 import { Edit, Trash2 } from "lucide-react";
 import DeleteWarning from "../../../Components/WarningForm/deleteWarning";
 import ReactDOM from "react-dom";
+import FormUpdateExpense from "../FormUpdate";
+import FormUpdateCategory from "../FormUpdate";
 
 export interface headerType<T = any> {
   label: React.ReactNode;
@@ -63,7 +65,7 @@ const Table: React.FC<Props> = ({
     if (id && id !== "") {
       // console.log("id để update", id);
       setIdEdit(id);
-      if (dataTabletype == "detail") {
+      if (dataTabletype == "expensedetail") {
         setisEditDetail(true);
       } else {
         setIsEdit(true);
@@ -82,7 +84,7 @@ const Table: React.FC<Props> = ({
   };
 
   return (
-    <div className="table-">
+    <div className="table-expense">
       <table className="main-table">
         <thead className="table-header">
           <tr>
@@ -200,14 +202,14 @@ const Table: React.FC<Props> = ({
         />,
         document.body
       )}
-      {/* {ReactDOM.createPortal(
-        <FormUpdate
+      {ReactDOM.createPortal(
+        <FormUpdateCategory
           isOpen={isEdit}
           onClose={handleCloseModal}
           id={IdEdit ?? ""}
         />,
         document.body
-      )} */}
+      )}
     </div>
   );
 };

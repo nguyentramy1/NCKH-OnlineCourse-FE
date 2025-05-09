@@ -3,16 +3,19 @@ import Card from "../../Components/Card/Card";
 import { useNavigate } from "react-router-dom";
 import useCourseData from "./Hooks/GetAllCourse";
 import Pagination from "../../Components/Pagination/Pagination-nonfun";
-import { useAppSelector } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../store";
 import FormAdd from "./Form/FormAdd";
 import ReactDOM from "react-dom";
 import { useState } from "react";
 import { Plus } from "lucide-react";
 import { Button } from "antd";
 import useCategoryData from "./Hooks/GetAllCategory";
+import FormUpdate from "./Form/FormUpdate";
+import { FormStateActions } from "../../Reduxs/FormState/FormStateSlice";
 
 const ListCourse = () => {
   useCategoryData();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const {
     CourseData,
@@ -27,6 +30,7 @@ const ListCourse = () => {
   );
   const role = useAppSelector((state) => state.authStore.role);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
   return (
     <div className="ListCourse">
       <div
@@ -76,6 +80,14 @@ const ListCourse = () => {
         <FormAdd
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
+          refetch={refetch}
+        />,
+        document.body
+      )}
+      {ReactDOM.createPortal(
+        <FormUpdate
+          id={useAppSelector((state) => state.FormStateStore.idEditCourse)}
+          isOpen={useAppSelector((state) => state.FormStateStore.EditCourse)}
           refetch={refetch}
         />,
         document.body

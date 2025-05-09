@@ -1,5 +1,4 @@
 import API from "./axiosConfig";
-import { infoType, registerUser } from "./DataType";
 
 export const apiService = {
   // API đăng nhập
@@ -60,9 +59,72 @@ export const apiService = {
       },
     });
   },
+  editCourse: (
+    id: string,
+    data: {
+      CategoryId: string;
+      Image: File; // Giữ là File theo yêu cầu
+      Title: string;
+      Description: string;
+      Price: number;
+      InstructorInfo: string;
+      Level: number;
+      ContentVideo: string;
+      Video: File;
+      Duration: string;
+    }
+  ) => {
+    // Tạo FormData để gửi dữ liệu
+    const formData = new FormData();
+    formData.append("CategoryId", data.CategoryId);
+    formData.append("Image", data.Image); // Truyền trực tiếp đối tượng File
+    formData.append("Title", data.Title);
+    formData.append("Description", data.Description);
+    formData.append("Price", data.Price.toString());
+    formData.append("InstructorInfo", data.Duration);
+    formData.append("Level", data.Level.toString());
+    formData.append("ContentVideo", data.ContentVideo);
+    formData.append("Video", data.Video);
+    formData.append("Duration", data.Duration);
+    // Gửi yêu cầu với FormData
+    return API.put(`/api/Course/edit/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Đặt header cho FormData
+      },
+    });
+  },
   //Category
   getListCategory: (data: { pageIndex?: number; pageSize?: number }) => {
     return API.post("/api/Category/filter", data);
+  },
+  getOneCategory: (id: string) => {
+    return API.get(`/api/Category/${id}`);
+  },
+  editCategory: (
+    id: string,
+    data: {
+      Name: string;
+    }
+  ) => {
+    const formData = new FormData();
+    formData.append("Name", data.Name);
+    return API.put(`/api/Category/edit/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Đặt header cho FormData
+      },
+    });
+  },
+  DeleteCategory: (id: string) => {
+    return API.delete(`/api/Category/${id}`);
+  },
+  addCategory: (data: { Name: string }) => {
+    const formData = new FormData();
+    formData.append("Name", data.Name);
+    return API.post(`/api/Category/add`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Đặt header cho FormData
+      },
+    });
   },
   //UserProfile
   getListUserProfile: (data: { pageIndex?: number; pageSize?: number }) => {

@@ -75,6 +75,17 @@
               max-width: 200px;
               max-height: 200px;
             }
+            .link-display {
+              display: inline-block;
+              max-width: 200px; // Để lại chỗ cho icon
+              color: #1cb4a2;
+              text-decoration: underline;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              padding: 4px 8px;
+              margin-top: 20px;
+            }
           }
         }
 

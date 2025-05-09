@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "./Card.scss";
 import imgDefaul from "../../Assets/Image/Logo.svg";
 import { Clock, Edit, Trash2 } from "lucide-react";
-import ReactDOM from "react-dom";
-import FormAdd from "../../Views/Course/Form/FormAdd";
+import { useAppDispatch } from "../../store";
+import { FormStateActions } from "../../Reduxs/FormState/FormStateSlice";
 
 interface CardProps {
   data: {
@@ -25,21 +25,20 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ data, onClick, role }) => {
   const [logoError, setLogoError] = useState(false);
-
-  const handleEdit = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Ngăn sự kiện onClick của card
-    console.log(`Edit course with ID: ${data.id}`); // Thay bằng logic chỉnh sửa
+  const dispatch = useAppDispatch();
+  const handleEdit = () => {
+    dispatch(FormStateActions.setEditCourse(true));
+    dispatch(FormStateActions.setidEditCourse(data.id));
   };
-
-  const handleDelete = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Ngăn sự kiện onClick của card
-    console.log(`Delete course with ID: ${data.id}`); // Thay bằng logic xóa
-  };
-
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  // console.log(
+  //   "edit",
+  //   dispatch(FormStateActions.setEditCourse(true)),
+  //   ",",
+  //   dispatch(FormStateActions.setidEditCourse(data.id))
+  // );
   return (
-    <div className="card" onClick={onClick} style={{ cursor: "pointer" }}>
-      <div className="card-img">
+    <div className="card" style={{ cursor: "pointer" }}>
+      <div className="card-img" onClick={onClick}>
         {logoError ? (
           <img src={imgDefaul} alt={data.title} />
         ) : (
@@ -75,7 +74,7 @@ const Card: React.FC<CardProps> = ({ data, onClick, role }) => {
           </div>
           {role === "admin" && (
             <div className="card-actions">
-              <Edit size={24} color="#0166ff" />
+              <Edit size={24} color="#0166ff" onClick={handleEdit} />
 
               <Trash2 size={24} color="red" />
             </div>

@@ -7,38 +7,49 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { noticeActions } from "../../Reduxs/Notification/Notification";
 import "./DeleteForm.scss";
+import { loadingActions } from "../../Reduxs/LoadingSlice";
 type Props = {
   onClose: () => void;
   isOpen: boolean;
   dataType?: string; //bảng lương || khác
-  iditem: number[];
-  id?: number;
+  id: string;
 };
 
-const Warning: React.FC<Props> = ({
-  onClose,
-  isOpen,
-  dataType,
-  iditem,
-  id,
-}) => {
+const Warning: React.FC<Props> = ({ onClose, isOpen, dataType, id }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch(); // Sử dụng useDispatch để gọi action
 
   const handleOnchange = () => {
-    console.log(iditem);
-   
-      deleteItem();
-    
-    onClose();
-  };
-  const datafordelete = {
-    data: iditem,
-  };
-  const deleteItem= async () => {
-    
+    if (dataType === "danh mục") {
+      DeleteCategory();
+    }
   };
 
+  const DeleteCategory = async () => {
+    try {
+      dispatch(loadingActions.setloading(true));
+      const response = (await apiService.DeleteCategory(
+        id
+      )) as unknown as apiResponse<nullData>;
+      if (!response) {
+        throw new Error("Network response was not ok");
+      }
+      onClose();
+      // Gọi action để hiển thị thông báo
+      dispatch(
+        noticeActions.setNotificationSuccess("Xóa danh mục thành công !")
+      );
+      dispatch(noticeActions.setIsShowNoticeSuccess(true));
+    } catch (error) {
+      console.error("Error:", error);
+      // Sử dụng type assertion cho error
+      dispatch(noticeActions.setNotification("Xóa danh mục thất bại"));
+      dispatch(noticeActions.setIsShowNotice(true));
+    } finally {
+      dispatch(loadingActions.setloading(false));
+      onClose();
+    }
+  };
 
   return (
     <div className="Noti">

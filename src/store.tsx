@@ -10,6 +10,7 @@ import { dropDownReducer } from "./Reduxs/FilterTable/DropDownSlice";
 import { profileReducer } from "./Reduxs/UserInfor/ProfileSlice";
 import { loadingReducer } from "./Reduxs/LoadingSlice";
 import { DropDataReducer } from "./Reduxs/OptionsMenu/DropDataState";
+import { FormStateReducer } from "./Reduxs/FormState/FormStateSlice";
 export const store = configureStore({
   reducer: {
     searchStore: searchReducer,
@@ -22,6 +23,7 @@ export const store = configureStore({
     ProfileStore: profileReducer,
     loadingStore: loadingReducer,
     DropDataStore: DropDataReducer,
+    FormStateStore: FormStateReducer,
   },
 });
 
