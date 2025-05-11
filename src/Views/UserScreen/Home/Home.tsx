@@ -79,7 +79,7 @@ const Home = () => {
         </div>
         <div className="home-button">
           <Button
-            onClick={() => {}}
+            onClick={() => navigate(`/list-course`)}
             label="Khám phá toàn bộ khóa học"
             className="explore-button"
           />

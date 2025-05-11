@@ -3,13 +3,18 @@ import "./CourseDetail.scss";
 import { Clock } from "lucide-react"; // Icon đồng hồ cho thời gian
 import imgDefaul from "../../Assets/Image/Logo.svg";
 import useOneCourseData from "./Hooks/GetOneCourse";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ErrorPage from "../Error/error-page";
+import { useDispatch } from "react-redux";
+import { CurrentCourseActions } from "../../Reduxs/CurrentCourseSlice";
+import { useAppSelector } from "../../store";
 
 const Course = () => {
   const { id } = useParams();
   const { CourseData, loading } = useOneCourseData(id);
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const idCourse = useAppSelector((state) => state.CurrentCourseStore.idCourse);
   // Kiểm tra nếu id không tồn tại
   if (!id) {
     return (
@@ -17,7 +22,11 @@ const Course = () => {
         <ErrorPage />
       </div>
     );
+  } else {
+    dispatch(CurrentCourseActions.setCurrentCourse(id));
   }
+
+  console.log("CurrentCourseActions", idCourse);
 
   // Kiểm tra trạng thái loading
   if (loading) {
@@ -62,7 +71,12 @@ const Course = () => {
             : "0.00"}
         </div>
         <div className="course-actions">
-          <button className="buy-now-btn">Mua ngay</button>
+          <button
+            className="buy-now-btn"
+            onClick={() => navigate(`/payment-now`)}
+          >
+            Mua ngay
+          </button>
           <button className="add-to-cart-btn">Thêm vào giỏ</button>
         </div>
       </div>

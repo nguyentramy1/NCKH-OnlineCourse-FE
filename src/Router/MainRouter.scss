@@ -64,6 +64,29 @@
     .main {
       flex: 1;
       margin-top: 18px;
+      background-color: #f9f9f9;
+      // margin-left: 250px; /* Khoảng cách để nội dung không bị che bởi menu cố định */
+    }
+  }
+  .content-user {
+    position: relative;
+    display: flex;
+    flex: 1; /* Chiếm toàn bộ không gian giữa header và footer */
+    margin-top: 55px; /* Khoảng cách để nội dung không bị che bởi header */
+    // min-height: calc(100vh - 80px - 60px); /* Trừ chiều cao header và footer */
+
+    .menu {
+      position: fixed; /* Cố định menu ở bên trái */
+      top: 80px;
+      left: 0;
+      height: calc(100vh - 60px); /* Chiều cao menu trừ đi header */
+      background-color: #f4f4f4;
+      z-index: 999; /* Đảm bảo menu nằm dưới header nhưng trên nội dung */
+    }
+    .main {
+      flex: 1;
+      margin-top: 18px;
+      background-color: #f9f9f9;
       // margin-left: 250px; /* Khoảng cách để nội dung không bị che bởi menu cố định */
     }
   }

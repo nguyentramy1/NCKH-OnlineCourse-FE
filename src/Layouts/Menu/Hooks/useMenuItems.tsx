@@ -1,4 +1,13 @@
-import { Home, Users, Book, BookOpen, BookUser, Tag } from "lucide-react";
+import {
+  Home,
+  Users,
+  Book,
+  BookOpen,
+  BookUser,
+  Tag,
+  ListOrdered,
+  ShoppingBasket,
+} from "lucide-react";
 interface subItems {
   title: string;
   path: string;
@@ -17,7 +26,7 @@ export interface MenuItem {
 
 export const useMenuItems = (): MenuItem[] => [
   {
-    title: "Home",
+    title: "Trang chủ",
     icon: <Home size={20} className="menu-icon" color="#0166FF" />,
     path: "/Home",
     role: "user",
@@ -25,7 +34,7 @@ export const useMenuItems = (): MenuItem[] => [
   },
 
   {
-    title: "User Management",
+    title: "Quản lý người dùng",
     icon: (
       <Users size={20} className="menu-icon" color="#0166FF" strokeWidth={3} />
     ),
@@ -34,7 +43,7 @@ export const useMenuItems = (): MenuItem[] => [
     arrow: false,
   },
   {
-    title: "Course Management",
+    title: "Quản lý khóa học",
     icon: (
       <Book size={20} className="menu-icon" color="#0166FF" strokeWidth={3} />
     ),
@@ -68,12 +77,26 @@ export const useMenuItems = (): MenuItem[] => [
     arrow: true,
   },
   {
-    title: "Category Management",
+    title: "Quản lý danh mục",
     icon: (
       <Tag size={20} className="menu-icon" color="#0166FF" strokeWidth={3} />
     ),
     path: "/list-category",
     role: "Admin",
+    arrow: false,
+  },
+  {
+    title: "Quản lý đơn hàng",
+    icon: (
+      <ShoppingBasket
+        size={20}
+        className="menu-icon"
+        color="#0166FF"
+        strokeWidth={3}
+      />
+    ),
+    path: "/order-manegement",
+    role: "admin",
     arrow: false,
   },
 ];

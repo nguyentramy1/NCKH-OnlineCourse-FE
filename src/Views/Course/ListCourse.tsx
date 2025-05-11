@@ -42,15 +42,16 @@ const ListCourse = () => {
       >
         <h3>Tất cả các khóa học</h3>
         <div style={{ padding: "20px" }}>
-          {" "}
-          <Button
-            icon={<Plus style={{ fontSize: "24px", color: "#fff" }} />}
-            onClick={() => setIsOpen(true)}
-            type="primary"
-            style={{ backgroundColor: "#0166ff", borderColor: "#0166ff" }}
-          >
-            Thêm
-          </Button>
+          {role === "admin" && (
+            <Button
+              icon={<Plus style={{ fontSize: "24px", color: "#fff" }} />}
+              onClick={() => setIsOpen(true)}
+              type="primary"
+              style={{ backgroundColor: "#0166ff", borderColor: "#0166ff" }}
+            >
+              Thêm
+            </Button>
+          )}
         </div>
       </div>
 

@@ -27,7 +27,7 @@ export type apiResponse<T> = {
 
 export type apiResponseListData<T> = {
   success: boolean;
-  code: number;
+  code: string;
   message: string;
   result: T[];
 };
@@ -142,4 +142,25 @@ export interface Option {
   value: string;
   label: string;
   active?: boolean;
+}
+
+export interface CourseUser {
+  id: string;
+  userId: string;
+  courseId: string;
+  enrollmentDate: string;
+  enrollmentStatus: number;
+  progressStatus: number;
+}
+export interface Order {
+  id: string;
+  userId: string;
+  priceSum: number;
+  paymentStatus: number;
+}
+export interface OrderDatail {
+  id: string;
+  orderId: string;
+  courseId: string;
+  price: number;
 }

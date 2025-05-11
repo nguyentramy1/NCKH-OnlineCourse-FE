@@ -93,6 +93,10 @@ export const apiService = {
       },
     });
   },
+  //COurse by user
+  getAllCourseByUser: (data: { pageIndex?: number; pageSize?: number }) => {
+    return API.post("/api/UserCourse/filter", data);
+  },
   //Category
   getListCategory: (data: { pageIndex?: number; pageSize?: number }) => {
     return API.post("/api/Category/filter", data);
@@ -189,5 +193,17 @@ export const apiService = {
   },
   updateUserStatus: (userId: string, status: number) => {
     return API.put(`/api/UserProfile/status/${userId}`, status);
+  },
+
+  //order
+  getListOrder: (data: { pageIndex?: number; pageSize?: number }) => {
+    return API.post("/api/Order/filter", data);
+  },
+  UpdateOrderStatus: (orderId: string, data: { paymentStatus: number }) => {
+    return API.put(`/api/Order/edit/${orderId}`, data);
+  },
+  //order detail
+  getAllOrderDetail: (data: { pageIndex?: number; pageSize?: number }) => {
+    return API.post("/api/OrderDetail/filter", data);
   },
 };

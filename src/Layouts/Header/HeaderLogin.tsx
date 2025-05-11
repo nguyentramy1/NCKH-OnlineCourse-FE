@@ -81,7 +81,7 @@ const Header = () => {
       <div className="account-control">
         <div className="Cart-label" onClick={() => {}}>
           <div className="UserName">
-            <p>My learning</p>
+            <p style={{ marginRight: "60px" }}>Khóa học của tôi</p>
           </div>
           <div className="ImgCart"></div>
         </div>

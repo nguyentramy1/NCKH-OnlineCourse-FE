@@ -10,6 +10,9 @@ import Course from "../Views/Course/CourseDetail";
 import ListCourse from "../Views/Course/ListCourse";
 import ListCategory from "../Views/Category/ListCategory";
 import ListUser from "../Views/UserManagement/ListUser";
+import PaymentNow from "../Views/Transaction/PaymentNow";
+import ListOrder from "../Views/Order/ListOrder";
+import ListOrderDetail from "../Views/Order/ListOrderDetail";
 const routerManage = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const role = useAppSelector((state) => state.authStore.info?.fullName); // này là role không phải fullname
@@ -59,6 +62,18 @@ const routerManage = () => {
       path: "/list-user",
       element: <ListUser />,
     },
+    {
+      path: "/payment-now",
+      element: <PaymentNow />,
+    },
+    {
+      path: "/order-manegement",
+      element: <ListOrder />,
+    },
+    {
+      path: "/order-detail/:id",
+      element: <ListOrderDetail />,
+    },
   ];
   const routerUser = [
     {
@@ -85,6 +100,14 @@ const routerManage = () => {
     {
       path: "/Home",
       element: <Home />,
+    },
+    {
+      path: "/payment-now",
+      element: <PaymentNow />,
+    },
+    {
+      path: "/list-course",
+      element: <ListCourse />,
     },
   ];
 
