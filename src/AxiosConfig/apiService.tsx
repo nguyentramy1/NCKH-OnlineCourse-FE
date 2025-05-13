@@ -20,13 +20,63 @@ export const apiService = {
   }) => {
     return API.post("/api/AdminAuthen/signUp", data);
   },
+  //cart
+  getListCart: (data: { pageIndex?: number; pageSize?: number }) => {
+    return API.post("/api/CartItem/filter", data);
+  },
 
+  addToCart: (courseId: string) => {
+    return API.post(`/api/CartItem/add/${courseId}`);
+  },
+  //buy
+  BuyCourse: (courseId: string) => {
+    return API.post(`/api/Order/buyCourse/${courseId}`);
+  },
+  getListTransaction: (data: { pageIndex?: number; pageSize?: number }) => {
+    return API.post("/api/Transaction/filter", data);
+  },
+
+  AdminConfirm: (transactionId: string) => {
+    return API.put(`/api/Transaction/${transactionId}/confirmByAdmin`, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Đặt header cho FormData
+      },
+    });
+  },
+  //recoment
+  getRecomentCourse: (data: { topN: number; userId: string }) => {
+    const params = {
+      userId: data.userId,
+      topN: data.topN,
+    };
+    return API.get("api/RecommendationSystem/personal", {
+      params,
+      headers: {
+        "Content-Type": "application/json", // Sử dụng header JSON cho yêu cầu GET
+      },
+    });
+  },
+  getSimilarCourse: (data: { courseId: string; topN: number }) => {
+    const params = {
+      courseId: data.courseId,
+      topN: data.topN,
+    };
+    return API.get("api/RecommendationSystem/similar", {
+      params,
+      headers: {
+        "Content-Type": "application/json", // Sử dụng header JSON cho yêu cầu GET
+      },
+    });
+  },
   //Course
   getListCourse: (data: { pageIndex?: number; pageSize?: number }) => {
     return API.post("/api/Course/filter", data);
   },
   getOneCourse: (id: string) => {
     return API.get(`/api/Course/${id}`);
+  },
+  DeleteCourse: (id: string) => {
+    return API.delete(`/api/Course/${id}`);
   },
   addCourse: (data: {
     CategoryId: string;
@@ -47,7 +97,7 @@ export const apiService = {
     formData.append("Title", data.Title);
     formData.append("Description", data.Description);
     formData.append("Price", data.Price.toString());
-    formData.append("InstructorInfo", data.Duration);
+    formData.append("InstructorInfo", data.InstructorInfo);
     formData.append("Level", data.Level.toString());
     formData.append("ContentVideo", data.ContentVideo);
     formData.append("Video", data.Video);
@@ -95,7 +145,7 @@ export const apiService = {
   },
   //COurse by user
   getAllCourseByUser: (data: { pageIndex?: number; pageSize?: number }) => {
-    return API.post("/api/UserCourse/filter", data);
+    return API.get("/api/UserCourse");
   },
   //Category
   getListCategory: (data: { pageIndex?: number; pageSize?: number }) => {

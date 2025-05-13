@@ -12,9 +12,7 @@
   width: 100%;
   opacity: 0;
   visibility: hidden;
-  transition:
-    opacity 0.3s ease,
-    visibility 0.3s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 
   &.open {
     opacity: 1;
@@ -45,7 +43,7 @@
 
     h1 {
       font-size: 20px;
-      color: #1CB4A2;
+      color: #0166ff;
       padding: 0px 10px;
     }
 
@@ -73,13 +71,13 @@
         width: 109px;
         height: 50px;
         background-color: #ffffff;
-        border: 1px solid #1CB4A2;
+        border: 1px solid #0166ff;
 
         &:hover {
           background-color: #ccc;
         }
         .label {
-          color: #1CB4A2;
+          color: #0166ff;
           font-size: 18px;
         }
       }
@@ -87,7 +85,7 @@
       .btn-delete {
         width: 109px;
         height: 50px;
-        background-color: #1CB4A2;
+        background-color: #0166ff;
         .label {
           color: #ffffff;
           font-size: 18px;

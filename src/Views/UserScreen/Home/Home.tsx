@@ -8,6 +8,8 @@ import { useEffect } from "react";
 import Button from "../../../Components/Button/Button";
 import Intro from "../../../Layouts/Introduce/intro";
 import { useAppSelector } from "../../../store";
+import Intropersonal from "../../../Layouts/Introduce/IntroPersonal";
+import useRecomentCourseData from "../CourseHook/GetRecomentCourse";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -17,20 +19,33 @@ const Home = () => {
     loading: projectsLoading,
     error: projectsError,
   } = useCourseData();
+  const {
+    recomCourseData,
+    loading: recomLoading,
+    error: recomError,
+  } = useRecomentCourseData(5);
 
   // Lấy 6 khóa học mới nhất và chia thành 2 hàng (3 trên, 3 dưới)
   const latestCourse = CourseData.slice(0, 6);
   const topCourses = latestCourse.slice(0, 3); // 3 khóa học đầu
   const bottomCourses = latestCourse.slice(3, 6); // 3 khóa học tiếp theo
-
+  const isAuth = useAppSelector((state) => state.authStore.isAuth);
   const handleCardClick = (id: string) => {
     navigate(`/course/${id}`);
   };
   const role = useAppSelector((state) => state.authStore.role);
-
   return (
     <div className="home">
-      <Intro />
+      {isAuth ? (
+        <Intropersonal
+          Course={recomCourseData}
+          projectsError={projectsError}
+          projectsLoading={projectsLoading}
+        />
+      ) : (
+        <Intro />
+      )}
+
       <section className="projects">
         <h2>Duyệt qua các khóa học phổ biến của chúng tôi</h2>
         {/* Scroll container cho 3 khóa học đầu */}

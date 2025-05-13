@@ -17,7 +17,7 @@ const Header = () => {
   };
 
   const handleGoHome = () => {
-    navigate("/list");
+    navigate("/home");
   };
 
   return (
@@ -81,9 +81,11 @@ const Header = () => {
       <div className="account-control">
         <div className="Cart-label" onClick={() => {}}>
           <div className="UserName">
-            <p style={{ marginRight: "60px" }}>Khóa học của tôi</p>
+            <div onClick={() => navigate(`/my-course`)}>
+              <p style={{ marginRight: "60px" }}>Khóa học của tôi</p>
+            </div>
           </div>
-          <div className="ImgCart"></div>
+          <div className="ImgCart" onClick={() => navigate(`/my-cart`)}></div>
         </div>
         <div className="account-label" onClick={() => setShowForm(true)}>
           <div className="UserName">

@@ -39,8 +39,8 @@ const Dropdown: React.FC<{
   );
   const [trigger, setTrigger] = useState<boolean>(false);
 
-  const { refetch } = useUpdateUserStatus(row["id"], statusValue, trigger);
-
+  const { refetch } = useUpdateUserStatus(row["id"], trigger);
+  console.log("edit paymentStatus data:", row["id"]);
   // Đồng bộ statusValue với row[header.value]
   useEffect(() => {
     setStatusValue(
@@ -80,8 +80,7 @@ const Dropdown: React.FC<{
         options={[
           { value: 0, label: "Chờ xử lý" },
           { value: 1, label: "Thành công" },
-          { value: 2, label: "Không xác định 2" },
-          { value: 3, label: "Thất bại" },
+          { value: 2, label: "Thất bại" },
         ]}
       />
     </div>

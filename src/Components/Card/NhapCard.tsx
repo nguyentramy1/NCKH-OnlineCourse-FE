@@ -11,12 +11,10 @@ import { noticeActions } from "../../Reduxs/Notification/Notification";
 
 interface CardProps {
   data: {
-    id: string;
-    image: string;
-    title: string;
+    userId: string;
+    courseId: string;
+    addedAt: string;
     price: number;
-    instructorInfo: string;
-    duration: string;
   };
   onClick?: () => void;
   role?: string;
@@ -26,11 +24,15 @@ interface CardProps {
 const Cardlong: React.FC<CardProps> = ({ data, onClick, role, needDelete }) => {
   const [logoError, setLogoError] = useState(false);
   const dispatch = useAppDispatch();
+  const handleEdit = () => {
+    dispatch(FormStateActions.setEditCourse(true));
+    dispatch(FormStateActions.setidEditCourse(data.courseId));
+  };
   const Delete = async () => {
     try {
       dispatch(loadingActions.setloading(true));
       const response = (await apiService.DeleteCategory(
-        data.id
+        data.courseId
       )) as unknown as apiResponse<nullData>;
       if (!response) {
         throw new Error("Network response was not ok");
@@ -58,23 +60,25 @@ const Cardlong: React.FC<CardProps> = ({ data, onClick, role, needDelete }) => {
         {/* Phần ảnh bên trái */}
         <div className="card-long-img" onClick={onClick}>
           {logoError ? (
-            <img src={imgDefaul} alt={data.title} />
+            // <img src={imgDefaul} alt={data.title} />
+            <img src={imgDefaul} />
           ) : (
-            <img
-              src={data.image}
-              alt={data.title}
-              onError={() => setLogoError(true)}
-            />
+            // <img
+            //   src={data.image}
+            //   alt={data.title}
+            //   onError={() => setLogoError(true)}
+            // />
+            <img src={imgDefaul} onError={() => setLogoError(true)} />
           )}
         </div>
 
         {/* Phần thông tin bên phải */}
         <div className="card-long-infor">
           <div className="infor-wrap">
-            <h3>{data.title || "Null"}</h3>
+            <h3>{data.courseId || "Null"}</h3>
             <p className="duration">
               <Clock size={14} className="duration-icon" />
-              {data.duration || "Null"}
+              {data.addedAt || "Null"}
             </p>
             <div
               style={{
@@ -85,7 +89,7 @@ const Cardlong: React.FC<CardProps> = ({ data, onClick, role, needDelete }) => {
                 gap: "50px",
               }}
             >
-              <p className="instructor">{data.instructorInfo || "Null"}</p>
+              <p className="instructor">{data.courseId || "Null"}</p>
               <p className="price">
                 <span className="currency">đ</span>
                 {data.price !== undefined && data.price !== null

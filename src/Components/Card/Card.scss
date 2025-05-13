@@ -220,8 +220,10 @@
 
     .card-long-actions {
       display: flex;
+      width: 100%;
       gap: 10px;
-      padding: 10px;
+      justify-content: flex-end;
+      padding-right: 10px;
     }
   }
 }

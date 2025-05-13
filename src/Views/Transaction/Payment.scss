@@ -26,6 +26,8 @@
 
     .course-list {
       flex: 1; // Chiếm 50% chiều rộng
+      display: flex;
+      flex-direction: column;
       .card-long {
         margin-top: 10px;
       }

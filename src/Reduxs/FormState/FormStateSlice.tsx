@@ -2,10 +2,14 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface FormState {
   EditCourse: boolean;
   idEditCourse: string;
+  isDelete: boolean;
+  idDeleteCourse: string;
 }
 const initialState: FormState = {
   EditCourse: false,
   idEditCourse: "",
+  isDelete: false,
+  idDeleteCourse: "",
 };
 
 const FormStateSlice = createSlice({
@@ -18,6 +22,13 @@ const FormStateSlice = createSlice({
 
     setidEditCourse: (state, action: PayloadAction<string>) => {
       state.idEditCourse = action.payload;
+    },
+    setDeleteCourse: (state, action: PayloadAction<boolean>) => {
+      state.isDelete = action.payload;
+    },
+
+    setidDeleteCourse: (state, action: PayloadAction<string>) => {
+      state.idDeleteCourse = action.payload;
     },
   },
 });

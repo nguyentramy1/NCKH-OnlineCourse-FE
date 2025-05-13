@@ -7,7 +7,7 @@ import { noticeActions } from "../../Reduxs/Notification/Notification";
 import { useEffect, useState } from "react";
 import { searchAction } from "../../Reduxs/FilterTable/SearchSlice";
 import { useCustomHeaders } from "./data/CustomHeader";
-import { useOrderData } from "./data/DataListOrder";
+import { useTransactionData } from "./data/DataListOrder";
 import { fixedUser } from "../FixData";
 import { Input, Select } from "antd";
 import PaginationSearch from "../../Components/Pagination/Pagination-SearchFunc";
@@ -26,7 +26,7 @@ export interface Project {
 const ListOrder = () => {
   const dispatch = useAppDispatch();
   // Gọi useCustomHeaders trực tiếp trong thân component
-  const { headersCustom } = useCustomHeaders();
+  const { headersTransaction } = useCustomHeaders();
   const error = useAppSelector((state) => state.noticeStore.notifiaction);
   const success = useAppSelector(
     (state) => state.noticeStore.notifiactionSuccess
@@ -42,11 +42,11 @@ const ListOrder = () => {
     dispatch(noticeActions.setIsShowNotice(false));
     dispatch(noticeActions.setIsShowNoticeSuccess(false));
   };
-  const { TotalCount, refetch, ListOrder } = useOrderData();
+  const { TotalCount, refetch, ListTransaction } = useTransactionData();
   /// Filter
   const [inputValue, setInputValue] = useState(""); // Giá trị nhập vào ô tìm kiếm
-  const [searchTerm, setSearchTerm] = useState(""); // Giá trị dùng để lọc từ Search
-  const [SelectedStatus, setSelectedStatus] = useState<string[]>([]); // Giá trị từ Select
+  const [searchTerm, setSearchTerm] = useState(""); // Giá trị dùng để lọc từ
+  const [SelectedStatus, setSelectedStatus] = useState<number[]>([]);
 
   const handleSearch = (value: string) => {
     setSearchTerm(value); // Cập nhật searchTerm khi nhấn Search
@@ -54,24 +54,22 @@ const ListOrder = () => {
   };
 
   // Hàm xử lý khi chọn nhiều tùy chọn từ Select
-  const setMultiCampaignDrop = (selectedValues: string[]) => {
+  const setMultiCampaignDrop = (selectedValues: number[]) => {
     setSelectedStatus(selectedValues);
     dispatch(searchAction.setCurrentPageIndexST(1)); // Reset về trang 1 khi thay đổi Select
   };
 
   // Lọc dữ liệu dựa trên cả searchTerm và SelectedStatus
-  const filterMultiData = ListOrder.filter((a) => {
+  const filterMultiData = ListTransaction.filter((a) => {
     // Lọc theo searchTerm
     const term = searchTerm.trim().toLowerCase();
-    const matchesName =
-      !searchTerm || (a && a.paymentStatus && a.paymentStatus);
+    const matchesName = !searchTerm || (a && a.userId && a.userId);
 
     // Lọc theo SelectedStatus
     const matchesStatus =
       SelectedStatus.length === 0 ||
-      (a.paymentStatus != null &&
-        SelectedStatus.includes(a.paymentStatus.toString()));
-
+      (a.status != null && SelectedStatus.includes(a.status));
+    console.log("a;", a.status.toString(), ", select", SelectedStatus);
     // Kết hợp các điều kiện
     return matchesName && matchesStatus;
   });
@@ -132,13 +130,12 @@ const ListOrder = () => {
                 showSearch
                 placeholder="Select project"
                 style={{ width: 200, height: 34, borderRadius: 8 }}
-                maxTagCount={2}
+                maxTagCount={1}
                 maxTagTextLength={10}
                 options={[
                   { value: 0, label: "Chờ xử lý" },
                   { value: 1, label: "Thành công" },
-                  { value: 2, label: "Không xác định 2" },
-                  { value: 3, label: "Thất bại" },
+                  { value: 2, label: "Thất bại" },
                 ]}
                 onChange={setMultiCampaignDrop} // Lọc ngay khi thay đổi Select
                 value={SelectedStatus}
@@ -157,11 +154,11 @@ const ListOrder = () => {
         <div className="wrap-table">
           <Table
             data={pageData}
-            headers={headersCustom}
+            headers={headersTransaction}
             amountDataPerPage={11}
             needNo={true}
             idSelect="id"
-            editField="paymentStatus"
+            editField="status"
             dataTabletype="member"
           />
         </div>

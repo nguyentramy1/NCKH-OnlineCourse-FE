@@ -12,6 +12,7 @@ import { Button } from "antd";
 import useCategoryData from "./Hooks/GetAllCategory";
 import FormUpdate from "./Form/FormUpdate";
 import { FormStateActions } from "../../Reduxs/FormState/FormStateSlice";
+import DeleteWarning from "../../Components/WarningForm/deleteWarning";
 
 const ListCourse = () => {
   useCategoryData();
@@ -30,7 +31,10 @@ const ListCourse = () => {
   );
   const role = useAppSelector((state) => state.authStore.role);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
+  const handleDelete = () => {
+    dispatch(FormStateActions.setDeleteCourse(false));
+    refetch();
+  };
   return (
     <div className="ListCourse">
       <div
@@ -90,6 +94,15 @@ const ListCourse = () => {
           id={useAppSelector((state) => state.FormStateStore.idEditCourse)}
           isOpen={useAppSelector((state) => state.FormStateStore.EditCourse)}
           refetch={refetch}
+        />,
+        document.body
+      )}
+      {ReactDOM.createPortal(
+        <DeleteWarning
+          isOpen={useAppSelector((state) => state.FormStateStore.isDelete)}
+          onClose={handleDelete}
+          dataType={"Khóa học"}
+          id={useAppSelector((state) => state.FormStateStore.idDeleteCourse)}
         />,
         document.body
       )}

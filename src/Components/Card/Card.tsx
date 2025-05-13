@@ -30,6 +30,10 @@ const Card: React.FC<CardProps> = ({ data, onClick, role }) => {
     dispatch(FormStateActions.setEditCourse(true));
     dispatch(FormStateActions.setidEditCourse(data.id));
   };
+  const handleDelete = () => {
+    dispatch(FormStateActions.setDeleteCourse(true));
+    dispatch(FormStateActions.setidDeleteCourse(data.id));
+  };
   // console.log(
   //   "edit",
   //   dispatch(FormStateActions.setEditCourse(true)),
@@ -76,7 +80,7 @@ const Card: React.FC<CardProps> = ({ data, onClick, role }) => {
             <div className="card-actions">
               <Edit size={24} color="#0166ff" onClick={handleEdit} />
 
-              <Trash2 size={24} color="red" />
+              <Trash2 size={24} color="red" onClick={handleDelete} />
             </div>
           )}
         </div>

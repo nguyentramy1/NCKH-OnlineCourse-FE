@@ -13,6 +13,9 @@ import ListUser from "../Views/UserManagement/ListUser";
 import PaymentNow from "../Views/Transaction/PaymentNow";
 import ListOrder from "../Views/Order/ListOrder";
 import ListOrderDetail from "../Views/Order/ListOrderDetail";
+import ListCourseByUser from "../Views/CourseByUser/ListCourse";
+import PaymentCart from "../Views/Transaction/PayinCart";
+import CourseStudy from "../Views/CourseByUser/StudyView";
 const routerManage = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const role = useAppSelector((state) => state.authStore.info?.fullName); // này là role không phải fullname
@@ -74,8 +77,44 @@ const routerManage = () => {
       path: "/order-detail/:id",
       element: <ListOrderDetail />,
     },
+    {
+      path: "/my-course",
+      element: <ListCourseByUser />,
+    },
+    {
+      path: "/my-cart",
+      element: <PaymentCart />,
+    },
+    {
+      path: "/course-study/:id",
+      element: <CourseStudy />,
+    },
   ];
   const routerUser = [
+    {
+      path: "/payment-now",
+      element: <PaymentNow />,
+    },
+    {
+      path: "/order-manegement",
+      element: <ListOrder />,
+    },
+    {
+      path: "/order-detail/:id",
+      element: <ListOrderDetail />,
+    },
+    {
+      path: "/my-course",
+      element: <ListCourseByUser />,
+    },
+    {
+      path: "/my-cart",
+      element: <PaymentCart />,
+    },
+    {
+      path: "/my-cart",
+      element: <PaymentCart />,
+    },
     {
       path: "/ProfileMember",
       element: <Profile />,
@@ -109,9 +148,25 @@ const routerManage = () => {
       path: "/list-course",
       element: <ListCourse />,
     },
+    {
+      path: "/my-course",
+      element: <ListCourseByUser />,
+    },
+    {
+      path: "/course/:id",
+      element: <Course />,
+    },
+    {
+      path: "/course-study/:id",
+      element: <CourseStudy />,
+    },
   ];
 
   const routerLogin = [
+    {
+      path: "/Home",
+      element: <Home />,
+    },
     {
       path: "*",
       element: <Navigate to={"/login"} />,

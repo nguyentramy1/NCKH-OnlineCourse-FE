@@ -3,13 +3,15 @@ import { useAppSelector } from "../../store";
 import useOneCourseData from "../Course/Hooks/GetOneCourse";
 import "./Payment.scss";
 import Cardlong from "../../Components/Card/LongCard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../Components/Button/Button";
 
 const PaymentNow = () => {
-  const idCourse = useAppSelector((state) => state.CurrentCourseStore.idCourse);
+  const idCourse = useAppSelector((state) => state.CurrentStore.idCourse);
   const { CourseData, loading } = useOneCourseData(idCourse);
   const role = useAppSelector((state) => state.authStore.role);
+
+  const QR = useAppSelector((state) => state.CurrentStore.currentQR);
   const navigate = useNavigate();
   // Xử lý khi đang tải dữ liệu
   if (loading) return <div>Loading...</div>;
@@ -53,7 +55,7 @@ const PaymentNow = () => {
 
           <div className="qr-code">
             <img
-              src="https://qrcode-gen.com/images/qrcode-default.png" // Thay bằng mã QR thực tế
+              src={QR.qrCodeUrl} // Thay bằng mã QR thực tế
               alt="QR Code"
             />
           </div>
@@ -65,7 +67,7 @@ const PaymentNow = () => {
                 state: { id: idCourse },
               })
             }
-            label="Hủy"
+            label="Xong"
           />
         </div>
       </div>

@@ -53,12 +53,12 @@
       .ant-input-search {
         width: 355px;
         .ant-btn {
-          background-color: #1cb4a2; // Màu nền nút
-          border-color: #1cb4a2; // Màu viền nút
+          background-color: #4a91fb; // Màu nền nút
+          border-color: #4a91fb; // Màu viền nút
           color: white; // Màu chữ trên nút
           &:hover {
-            background-color: #17a190; // Màu khi hover (tối hơn một chút)
-            border-color: #17a190;
+            background-color: #3668b3; // Màu khi hover (tối hơn một chút)
+            border-color: #3668b3;
           }
         }
       }
@@ -172,7 +172,7 @@
 
         gap: 10px;
         .btn {
-          background-color: #1cb4a2;
+          background-color: #4a91fb;
           width: 32px;
           height: 32px;
         }

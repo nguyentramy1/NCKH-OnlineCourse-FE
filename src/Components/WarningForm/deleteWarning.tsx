@@ -22,6 +22,8 @@ const Warning: React.FC<Props> = ({ onClose, isOpen, dataType, id }) => {
   const handleOnchange = () => {
     if (dataType === "danh mục") {
       DeleteCategory();
+    } else if (dataType === "Khóa học") {
+      DeleteCourse();
     }
   };
 
@@ -29,6 +31,32 @@ const Warning: React.FC<Props> = ({ onClose, isOpen, dataType, id }) => {
     try {
       dispatch(loadingActions.setloading(true));
       const response = (await apiService.DeleteCategory(
+        id
+      )) as unknown as apiResponse<nullData>;
+      if (!response) {
+        throw new Error("Network response was not ok");
+      }
+      onClose();
+      // Gọi action để hiển thị thông báo
+      dispatch(
+        noticeActions.setNotificationSuccess("Xóa danh mục thành công !")
+      );
+      dispatch(noticeActions.setIsShowNoticeSuccess(true));
+    } catch (error) {
+      console.error("Error:", error);
+      // Sử dụng type assertion cho error
+      dispatch(noticeActions.setNotification("Xóa danh mục thất bại"));
+      dispatch(noticeActions.setIsShowNotice(true));
+    } finally {
+      dispatch(loadingActions.setloading(false));
+      onClose();
+    }
+  };
+
+  const DeleteCourse = async () => {
+    try {
+      dispatch(loadingActions.setloading(true));
+      const response = (await apiService.DeleteCourse(
         id
       )) as unknown as apiResponse<nullData>;
       if (!response) {

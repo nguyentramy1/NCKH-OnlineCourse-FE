@@ -5,28 +5,19 @@ import { useDispatch } from "react-redux";
 import { noticeActions } from "../../../Reduxs/Notification/Notification";
 
 const useUpdateUserpaymentStatus = (
-  orderId: string,
-  paymentStatus: number,
+  transactionId: string,
   trigger: boolean = false
 ) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const data = {
-    paymentStatus: paymentStatus,
-  };
+
   const fetch = async () => {
     try {
       setLoading(true);
-      console.log(
-        "edit paymentStatus data: user id",
-        orderId,
-        ", paymentStatus",
-        paymentStatus
-      );
-      const response = (await apiService.UpdateOrderStatus(
-        orderId,
-        data
+      console.log("edit paymentStatus data: user id", transactionId);
+      const response = (await apiService.AdminConfirm(
+        transactionId
       )) as unknown as apiResponse<nullData>;
       if (!response) {
         throw new Error("Network response was not ok");
