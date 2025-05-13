@@ -27,7 +27,7 @@ export type apiResponse<T> = {
 
 export type apiResponseListData<T> = {
   success: boolean;
-  code: number;
+  code: string;
   message: string;
   result: T[];
 };
@@ -137,4 +137,68 @@ export type ResponeList<T> = {
 export interface Category {
   id: string;
   name: string;
+}
+export interface Option {
+  value: string;
+  label: string;
+  active?: boolean;
+}
+
+export interface CourseUser {
+  id: string;
+  categoryId: string;
+  image: string;
+  title: string;
+  description: string;
+  price: number;
+  instructorInfo: string;
+  level: number;
+  contentVideo: string;
+  video: string;
+  duration: string;
+  userId: string;
+  courseId: string;
+  enrollmentDate: string;
+  enrollmentStatus: number;
+  progressStatus: number;
+}
+export interface CourseCart {
+  userId: string;
+  courseId: string;
+  addedAt: string;
+  price: number;
+}
+export interface Order {
+  id: string;
+  userId: string;
+  priceSum: number;
+  paymentStatus: number;
+}
+export interface OrderDatail {
+  id: string;
+  orderId: string;
+  courseId: string;
+  price: number;
+}
+export interface QR {
+  id: string;
+  userId: string;
+  userName: string;
+  priceSum: number;
+  paymentStatus: number;
+  transferDescription: string;
+  qrCodeUrl: string;
+}
+export interface Transaction {
+  id: string;
+  orderId: string;
+  userId: string;
+  purchaseDate: string;
+  paymentDate: string;
+  transactionReference: string;
+  bankInfo: string;
+  qrCode: string;
+  amount: number;
+  status: number;
+  userTransactionInfo: number;
 }

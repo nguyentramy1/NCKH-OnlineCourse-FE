@@ -1,0 +1,91 @@
+.payment-container {
+  margin: 20px;
+  font-family: Arial, sans-serif;
+  color: #0e0e0f; // Màu chữ mặc định là đen
+
+  h2 {
+    font-size: 48px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 30px;
+    margin: 5px 0;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid #0e0e0f;
+    margin: 10px 0;
+    width: 50%;
+  }
+
+  .payment-layout {
+    display: flex;
+    gap: 20px; // Khoảng cách giữa hai cột
+
+    .course-list {
+      flex: 1; // Chiếm 50% chiều rộng
+      display: flex;
+      flex-direction: column;
+      .card-long {
+        margin-top: 10px;
+      }
+    }
+
+    .payment-summary {
+      flex: 1; // Chiếm 50% chiều rộng
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+
+      .total-section {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        width: 242px;
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-weight: bold;
+
+        .total-amount {
+          color: #000; // Màu đen cho tổng tiền
+          font-size: 36px;
+        }
+      }
+
+      .qr-code {
+        margin-bottom: 20px;
+
+        img {
+          width: 242px;
+          height: auto;
+        }
+      }
+
+      .cancel-btn {
+        width: 30%;
+        max-width: 200px; // Giới hạn chiều rộng nút Hủy
+
+        background-color: #ffffff;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        border: 1px solid #237bff;
+        &:hover {
+          background-color: #cee0f3;
+          .label {
+            font-size: 24px;
+            color: #0056b3;
+          }
+        }
+        .label {
+          font-size: 24px;
+          color: #237bff;
+        }
+      }
+    }
+  }
+}

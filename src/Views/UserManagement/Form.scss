@@ -1,0 +1,184 @@
+.Add-Expense {
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center; // Căn giữa ngang
+    align-items: center; // Căn giữa dọc
+    z-index: 1000;
+    width: 100%;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+
+    &.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    &.close {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .modal {
+      display: flex;
+      position: relative;
+      background: white;
+      flex-direction: column;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      max-width: 100%;
+      width: 320px;
+      padding: 20px;
+      height: auto;
+      transition: transform 0.3s ease, opacity 0.3s ease; // Thêm opacity cho animation mượt hơn
+
+      &.open {
+        transform: scale(1); // Hiệu ứng mở nhẹ nhàng
+        opacity: 1;
+      }
+
+      &.close {
+        transform: scale(0.9); // Hiệu ứng thu nhỏ khi đóng
+        opacity: 0;
+      }
+
+      h1 {
+        font-size: 18px;
+        color: #10418a;
+        font-size: 30px;
+        margin: 0 0 20px 0;
+      }
+
+      .form-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        .infor-project {
+          font-size: 14px;
+          font-weight: 600;
+          max-width: 200px;
+          .project-logo {
+            max-width: 200px;
+            max-height: 200px;
+            img {
+              max-width: 200px;
+              max-height: 200px;
+            }
+          }
+        }
+        .form-input {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          max-height: none;
+          margin-left: 10px;
+          .input-colum {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            .item-input {
+              h2 {
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                font-size: 14px;
+                font-weight: 600;
+                margin: 2px 0;
+              }
+              .input-container {
+                height: 30px;
+                width: 300px;
+                img {
+                  width: 0px;
+                }
+                .search-icon {
+                  display: none;
+                }
+              }
+              .input-dropdown {
+                height: 32px;
+                width: 402px;
+                position: relative;
+                .container-dropfield {
+                  .custom-btn {
+                    height: 32px;
+                  }
+                }
+              }
+            }
+            .row-wrap {
+              display: flex;
+              flex-direction: row;
+              gap: 10px;
+              .input-container {
+                height: 30px;
+                width: 130px;
+                img {
+                  width: 0px;
+                }
+              }
+              .input-dropdown {
+                height: 32px;
+                width: 130px;
+                position: relative;
+                .container-dropfield {
+                  .custom-btn {
+                    height: 32px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .form-btn {
+        display: flex;
+        justify-content: flex-end; // Đổi thành flex-end để nút nằm bên phải
+        align-items: center;
+        gap: 8px;
+        margin-top: 20px; // Thêm margin trên để cách form-container
+        margin-right: 5px;
+
+        .btn-exit {
+          width: 100px;
+          background-color: #ffffff;
+          border: 1px solid #237bff;
+          &:hover {
+            background-color: #ccc;
+          }
+          .label {
+            color: #237bff;
+          }
+          &:disabled {
+            background: #83b3fb;
+            .label {
+              color: #ffffff;
+            }
+            cursor: not-allowed;
+          }
+        }
+
+        .btn-delete {
+          width: 100px;
+          background-color: #237bff;
+          &:hover {
+            background-color: #1a60c8;
+          }
+          &:disabled {
+            background: #83b3fb;
+            .label {
+              color: #ffffff;
+            }
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+}

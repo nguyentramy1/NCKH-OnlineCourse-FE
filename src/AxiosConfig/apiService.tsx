@@ -1,5 +1,4 @@
 import API from "./axiosConfig";
-import { infoType, registerUser } from "./DataType";
 
 export const apiService = {
   // API đăng nhập
@@ -21,13 +20,63 @@ export const apiService = {
   }) => {
     return API.post("/api/AdminAuthen/signUp", data);
   },
+  //cart
+  getListCart: (data: { pageIndex?: number; pageSize?: number }) => {
+    return API.post("/api/CartItem/filter", data);
+  },
 
+  addToCart: (courseId: string) => {
+    return API.post(`/api/CartItem/add/${courseId}`);
+  },
+  //buy
+  BuyCourse: (courseId: string) => {
+    return API.post(`/api/Order/buyCourse/${courseId}`);
+  },
+  getListTransaction: (data: { pageIndex?: number; pageSize?: number }) => {
+    return API.post("/api/Transaction/filter", data);
+  },
+
+  AdminConfirm: (transactionId: string) => {
+    return API.put(`/api/Transaction/${transactionId}/confirmByAdmin`, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Đặt header cho FormData
+      },
+    });
+  },
+  //recoment
+  getRecomentCourse: (data: { topN: number; userId: string }) => {
+    const params = {
+      userId: data.userId,
+      topN: data.topN,
+    };
+    return API.get("api/RecommendationSystem/personal", {
+      params,
+      headers: {
+        "Content-Type": "application/json", // Sử dụng header JSON cho yêu cầu GET
+      },
+    });
+  },
+  getSimilarCourse: (data: { courseId: string; topN: number }) => {
+    const params = {
+      courseId: data.courseId,
+      topN: data.topN,
+    };
+    return API.get("api/RecommendationSystem/similar", {
+      params,
+      headers: {
+        "Content-Type": "application/json", // Sử dụng header JSON cho yêu cầu GET
+      },
+    });
+  },
   //Course
   getListCourse: (data: { pageIndex?: number; pageSize?: number }) => {
     return API.post("/api/Course/filter", data);
   },
   getOneCourse: (id: string) => {
     return API.get(`/api/Course/${id}`);
+  },
+  DeleteCourse: (id: string) => {
+    return API.delete(`/api/Course/${id}`);
   },
   addCourse: (data: {
     CategoryId: string;
@@ -48,7 +97,7 @@ export const apiService = {
     formData.append("Title", data.Title);
     formData.append("Description", data.Description);
     formData.append("Price", data.Price.toString());
-    formData.append("InstructorInfo", data.Duration);
+    formData.append("InstructorInfo", data.InstructorInfo);
     formData.append("Level", data.Level.toString());
     formData.append("ContentVideo", data.ContentVideo);
     formData.append("Video", data.Video);
@@ -60,9 +109,76 @@ export const apiService = {
       },
     });
   },
+  editCourse: (
+    id: string,
+    data: {
+      CategoryId: string;
+      Image: File; // Giữ là File theo yêu cầu
+      Title: string;
+      Description: string;
+      Price: number;
+      InstructorInfo: string;
+      Level: number;
+      ContentVideo: string;
+      Video: File;
+      Duration: string;
+    }
+  ) => {
+    // Tạo FormData để gửi dữ liệu
+    const formData = new FormData();
+    formData.append("CategoryId", data.CategoryId);
+    formData.append("Image", data.Image); // Truyền trực tiếp đối tượng File
+    formData.append("Title", data.Title);
+    formData.append("Description", data.Description);
+    formData.append("Price", data.Price.toString());
+    formData.append("InstructorInfo", data.Duration);
+    formData.append("Level", data.Level.toString());
+    formData.append("ContentVideo", data.ContentVideo);
+    formData.append("Video", data.Video);
+    formData.append("Duration", data.Duration);
+    // Gửi yêu cầu với FormData
+    return API.put(`/api/Course/edit/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Đặt header cho FormData
+      },
+    });
+  },
+  //COurse by user
+  getAllCourseByUser: (data: { pageIndex?: number; pageSize?: number }) => {
+    return API.get("/api/UserCourse");
+  },
   //Category
   getListCategory: (data: { pageIndex?: number; pageSize?: number }) => {
     return API.post("/api/Category/filter", data);
+  },
+  getOneCategory: (id: string) => {
+    return API.get(`/api/Category/${id}`);
+  },
+  editCategory: (
+    id: string,
+    data: {
+      Name: string;
+    }
+  ) => {
+    const formData = new FormData();
+    formData.append("Name", data.Name);
+    return API.put(`/api/Category/edit/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Đặt header cho FormData
+      },
+    });
+  },
+  DeleteCategory: (id: string) => {
+    return API.delete(`/api/Category/${id}`);
+  },
+  addCategory: (data: { Name: string }) => {
+    const formData = new FormData();
+    formData.append("Name", data.Name);
+    return API.post(`/api/Category/add`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Đặt header cho FormData
+      },
+    });
   },
   //UserProfile
   getListUserProfile: (data: { pageIndex?: number; pageSize?: number }) => {
@@ -127,5 +243,17 @@ export const apiService = {
   },
   updateUserStatus: (userId: string, status: number) => {
     return API.put(`/api/UserProfile/status/${userId}`, status);
+  },
+
+  //order
+  getListOrder: (data: { pageIndex?: number; pageSize?: number }) => {
+    return API.post("/api/Order/filter", data);
+  },
+  UpdateOrderStatus: (orderId: string, data: { paymentStatus: number }) => {
+    return API.put(`/api/Order/edit/${orderId}`, data);
+  },
+  //order detail
+  getAllOrderDetail: (data: { pageIndex?: number; pageSize?: number }) => {
+    return API.post("/api/OrderDetail/filter", data);
   },
 };

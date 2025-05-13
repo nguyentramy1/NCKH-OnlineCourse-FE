@@ -1,0 +1,306 @@
+.ListProject-Container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  margin-bottom: 60px;
+  height: 100%;
+  .notice-error {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    transition: all 1s linear;
+    &.close {
+      z-index: -1;
+    }
+    &.open {
+      z-index: 999999;
+    }
+  }
+  .notice-success {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    transition: all 1s linear;
+    width: 200px;
+    &.close {
+      z-index: -1;
+    }
+    &.open {
+      z-index: 1000;
+    }
+  }
+  .content {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
+    margin: 5px;
+  }
+  .filter-container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 93.7vw;
+    gap: 10px;
+
+    .search-text {
+      width: 355px;
+    }
+    .search-text-campaign {
+      width: 355px;
+      .input-container {
+        height: 32px;
+      }
+      .ant-input-search {
+        width: 355px;
+        .ant-btn {
+          background-color: #4a91fb; // Màu nền nút
+          border-color: #4a91fb; // Màu viền nút
+          color: white; // Màu chữ trên nút
+          &:hover {
+            background-color: #3668b3; // Màu khi hover (tối hơn một chút)
+            border-color: #3668b3;
+          }
+        }
+      }
+    }
+    .search-dropdown {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 10px;
+      width: 100%;
+      justify-content: space-between;
+      align-items: flex-end;
+      .dropdown-container {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        .dropdown-area {
+          width: 298px;
+          .input-dropdown {
+            width: 298px;
+            .input-show {
+              &:hover {
+                background-color: white;
+                border-color: #009ae3;
+              }
+            }
+
+            .input-show-close {
+              border-color: #d6d6d6;
+            }
+
+            .dropdown-list {
+              max-height: fit-content;
+            }
+          }
+
+          .dropdown-field {
+            width: 50%;
+            padding: 10px;
+          }
+          &.hidden {
+            display: none;
+          }
+        }
+      }
+      .dropdown-container-campaign {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+
+        .search-text-campaign {
+          width: 355px;
+          .input-container {
+            height: 32px;
+          }
+        }
+
+        .dropdown-area {
+          // Tùy chỉnh Ant Select
+          :where(.css-dev-only-do-not-override-240cud).ant-select-outlined:not(
+              .ant-select-customize-input
+            )
+            .ant-select-selector {
+            border: 1px solid #d1d0d0; // Viền 1px solid (màu mặc định sẽ là màu xám của trình duyệt, có thể chỉ định thêm)
+            background: #ffffff; // Màu nền trắng
+          }
+
+          .input-dropdown {
+            width: 150px;
+            .custom-btn {
+              height: 32px;
+              border-radius: 6px;
+            }
+            .container-dropfield {
+              .custom-btn {
+                height: 32px;
+                border-radius: 6px;
+                .input-show {
+                  &:hover {
+                    background-color: white;
+                    border-color: #009ae3;
+                  }
+                }
+
+                .input-show-close {
+                  border-color: #d6d6d6;
+                }
+
+                .dropdown-list {
+                  max-height: fit-content;
+                }
+              }
+            }
+          }
+
+          .dropdown-field {
+            width: 50%;
+            height: 32px;
+            padding: 10px;
+          }
+
+          &.hidden {
+            display: none;
+          }
+        }
+      }
+
+      .btn-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+
+        gap: 10px;
+        .btn {
+          background-color: #4a91fb;
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+    .Button {
+      display: flex;
+      gap: 10px;
+      .create-new {
+        width: 40px;
+        height: 40px;
+        .btn {
+          .label {
+            font-size: 33px;
+            font-weight: 100;
+          }
+        }
+      }
+      .delete {
+        width: 40px;
+        height: 40px;
+        margin-left: 10px;
+        .btn {
+          background-color: #eaeaea;
+          .label {
+            font-size: 33px;
+            font-weight: 100;
+          }
+        }
+        .btn:hover {
+          background-color: #cfcdcd;
+        }
+      }
+    }
+  }
+  .Selected-total {
+    position: relative;
+    top: -5px;
+
+    p {
+      color: #001f2d;
+      font-size: 15px;
+      margin: 8px;
+    }
+  }
+  .table-area {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 104vw;
+    .wrap-table {
+      height: 77.2vh;
+      width: 94vw;
+      .table-father {
+        height: auto;
+        background-color: transparent;
+        overflow-x: auto; /* Thêm thanh cuộn ngang nếu bảng bị tràn */
+      }
+      .table-expense {
+        height: auto;
+        background-color: transparent;
+        overflow-x: auto; /* Thêm thanh cuộn ngang nếu bảng bị tràn */
+      }
+      .table-campaign {
+        height: auto;
+        background-color: transparent;
+        overflow-x: auto; /* Thêm thanh cuộn ngang nếu bảng bị tràn */
+      }
+    }
+  }
+  .wrap-pagination {
+    display: flex;
+
+    width: 100%; // Chiều rộng đầy đủ
+  }
+  /* width */
+  ::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 0 8px 8px 0;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 0 8px 8px 0;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  /* Scrollbar ngang */
+  ::-webkit-scrollbar:horizontal {
+    height: 3px; /* Định nghĩa chiều cao của scrollbar ngang */
+  }
+
+  /* Track ngang */
+  ::-webkit-scrollbar-track:horizontal {
+    background: #f1f1f1;
+    border-radius: 8px 0 0 8px;
+  }
+
+  /* Handle ngang */
+  ::-webkit-scrollbar-thumb:horizontal {
+    background: #888;
+    border-radius: 8px 0 0 8px;
+  }
+
+  /* Handle ngang khi hover */
+  ::-webkit-scrollbar-thumb:horizontal:hover {
+    background: #555;
+  }
+}
+.delete-button {
+  background-color: transparent;
+  width: 32px;
+  height: 32px;
+}
+// span {
+//   display: inline-block; /* Đảm bảo span có thể được điều chỉnh kích thước */
+//   width: 400px; /* Hoặc giá trị khác theo yêu cầu */
+//   white-space: nowrap; /* Ngăn không cho tên xuống dòng */
+//   overflow: hidden; /* Ẩn phần thừa */
+//   text-overflow: ellipsis; /* Thêm dấu "..." */
+// }

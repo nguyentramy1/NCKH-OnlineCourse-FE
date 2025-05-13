@@ -8,6 +8,14 @@ import Home from "../Views/UserScreen/Home/Home";
 import Profile from "../Views/Profile/Profile";
 import Course from "../Views/Course/CourseDetail";
 import ListCourse from "../Views/Course/ListCourse";
+import ListCategory from "../Views/Category/ListCategory";
+import ListUser from "../Views/UserManagement/ListUser";
+import PaymentNow from "../Views/Transaction/PaymentNow";
+import ListOrder from "../Views/Order/ListOrder";
+import ListOrderDetail from "../Views/Order/ListOrderDetail";
+import ListCourseByUser from "../Views/CourseByUser/ListCourse";
+import PaymentCart from "../Views/Transaction/PayinCart";
+import CourseStudy from "../Views/CourseByUser/StudyView";
 const routerManage = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const role = useAppSelector((state) => state.authStore.info?.fullName); // này là role không phải fullname
@@ -49,8 +57,64 @@ const routerManage = () => {
       path: "/list-course",
       element: <ListCourse />,
     },
+    {
+      path: "/list-category",
+      element: <ListCategory />,
+    },
+    {
+      path: "/list-user",
+      element: <ListUser />,
+    },
+    {
+      path: "/payment-now",
+      element: <PaymentNow />,
+    },
+    {
+      path: "/order-manegement",
+      element: <ListOrder />,
+    },
+    {
+      path: "/order-detail/:id",
+      element: <ListOrderDetail />,
+    },
+    {
+      path: "/my-course",
+      element: <ListCourseByUser />,
+    },
+    {
+      path: "/my-cart",
+      element: <PaymentCart />,
+    },
+    {
+      path: "/course-study/:id",
+      element: <CourseStudy />,
+    },
   ];
   const routerUser = [
+    {
+      path: "/payment-now",
+      element: <PaymentNow />,
+    },
+    {
+      path: "/order-manegement",
+      element: <ListOrder />,
+    },
+    {
+      path: "/order-detail/:id",
+      element: <ListOrderDetail />,
+    },
+    {
+      path: "/my-course",
+      element: <ListCourseByUser />,
+    },
+    {
+      path: "/my-cart",
+      element: <PaymentCart />,
+    },
+    {
+      path: "/my-cart",
+      element: <PaymentCart />,
+    },
     {
       path: "/ProfileMember",
       element: <Profile />,
@@ -76,9 +140,33 @@ const routerManage = () => {
       path: "/Home",
       element: <Home />,
     },
+    {
+      path: "/payment-now",
+      element: <PaymentNow />,
+    },
+    {
+      path: "/list-course",
+      element: <ListCourse />,
+    },
+    {
+      path: "/my-course",
+      element: <ListCourseByUser />,
+    },
+    {
+      path: "/course/:id",
+      element: <Course />,
+    },
+    {
+      path: "/course-study/:id",
+      element: <CourseStudy />,
+    },
   ];
 
   const routerLogin = [
+    {
+      path: "/Home",
+      element: <Home />,
+    },
     {
       path: "*",
       element: <Navigate to={"/login"} />,

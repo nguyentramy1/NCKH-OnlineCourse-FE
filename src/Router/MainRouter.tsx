@@ -121,15 +121,13 @@ const MainRouter: React.FC = () => {
             </>
           ) : (
             <>
-              <HeaderLogin />
-              <button
-                className="menu-toggle"
-                onClick={() => setMenuOpen(!menuOpen)}
-                style={{ display: window.innerWidth <= 480 ? "block" : "none" }}
-              >
-                {menuOpen ? "Đóng Menu" : "Mở Menu"}
-              </button>
-              <div className="content">
+              <div className="header">
+                <HeaderLogin />
+              </div>
+              <div className="content-user">
+                {/* <div className={`menu`}>
+                  <Menu />
+                </div> */}
                 <div className="main">
                   <Routes>
                     {routerUser.map((route, i) => (
@@ -138,6 +136,7 @@ const MainRouter: React.FC = () => {
                   </Routes>
                 </div>
               </div>
+              <Footer />
             </>
           )
         ) : (

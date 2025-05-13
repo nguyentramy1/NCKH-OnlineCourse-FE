@@ -1,15 +1,12 @@
 import {
   Home,
-  FolderKanban,
-  Folder,
-  List,
-  FileCheck,
-  Files,
   Users,
   Book,
   BookOpen,
   BookUser,
   Tag,
+  ListOrdered,
+  ShoppingBasket,
 } from "lucide-react";
 interface subItems {
   title: string;
@@ -29,62 +26,15 @@ export interface MenuItem {
 
 export const useMenuItems = (): MenuItem[] => [
   {
-    title: "Home",
+    title: "Trang chủ",
     icon: <Home size={20} className="menu-icon" color="#0166FF" />,
     path: "/Home",
     role: "user",
     arrow: false,
   },
+
   {
-    title: "Project Management",
-    icon: <FolderKanban size={20} className="menu-icon" color="#0166FF" />,
-    subItems: [
-      {
-        title: "My Project",
-        path: "/my-project",
-        icon: <Folder size={16} className="menu-icon" color="#0166FF" />,
-      },
-      {
-        title: "Project Participated",
-        path: "/list-project",
-        icon: (
-          <List
-            size={16}
-            className="menu-icon"
-            color="#0166FF"
-            strokeWidth={3}
-          />
-        ),
-      },
-    ],
-    role: "User",
-    arrow: true,
-  },
-  {
-    title: "Project result",
-    icon: (
-      <FileCheck
-        size={20}
-        className="menu-icon"
-        color="#0166FF"
-        strokeWidth={3}
-      />
-    ),
-    path: "/ProjectResult",
-    role: "User",
-    arrow: false,
-  },
-  {
-    title: "All project",
-    icon: (
-      <Files size={20} className="menu-icon" color="#0166FF" strokeWidth={3} />
-    ),
-    path: "/ProjectResult",
-    role: "User",
-    arrow: false,
-  },
-  {
-    title: "User Management",
+    title: "Quản lý người dùng",
     icon: (
       <Users size={20} className="menu-icon" color="#0166FF" strokeWidth={3} />
     ),
@@ -93,7 +43,7 @@ export const useMenuItems = (): MenuItem[] => [
     arrow: false,
   },
   {
-    title: "Course Management",
+    title: "Quản lý khóa học",
     icon: (
       <Book size={20} className="menu-icon" color="#0166FF" strokeWidth={3} />
     ),
@@ -127,12 +77,26 @@ export const useMenuItems = (): MenuItem[] => [
     arrow: true,
   },
   {
-    title: "Category Management",
+    title: "Quản lý danh mục",
     icon: (
       <Tag size={20} className="menu-icon" color="#0166FF" strokeWidth={3} />
     ),
     path: "/list-category",
     role: "Admin",
+    arrow: false,
+  },
+  {
+    title: "Quản lý đơn hàng",
+    icon: (
+      <ShoppingBasket
+        size={20}
+        className="menu-icon"
+        color="#0166FF"
+        strokeWidth={3}
+      />
+    ),
+    path: "/order-manegement",
+    role: "admin",
     arrow: false,
   },
 ];
