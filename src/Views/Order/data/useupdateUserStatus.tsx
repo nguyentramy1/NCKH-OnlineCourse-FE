@@ -24,14 +24,12 @@ const useUpdateUserpaymentStatus = (
       }
 
       dispatch(
-        noticeActions.setNotificationSuccess(
-          "Update user paymentStatus successfully"
-        )
+        noticeActions.setNotificationSuccess("Cập nhật trạng thái thành công!")
       );
       dispatch(noticeActions.setIsShowNoticeSuccess(true));
     } catch (error) {
       console.error("Error message:", error);
-      let message = "User paymentStatus update failed!";
+      let message = "Cập nhật trạng thái thất bại!";
       if (error && typeof error === "object" && "message" in error) {
         message = (error as Error).message;
       }

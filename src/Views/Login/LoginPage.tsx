@@ -77,13 +77,13 @@ const LoginPage: React.FC = () => {
       sessionStorage.setItem("refreshToken", response.data.refreshToken);
       dispatch(authActions.setAuth(true));
       dispatch(authActions.setInfo(info));
-      dispatch(noticeActions.setNotificationSuccess("Login successful"));
+      dispatch(noticeActions.setNotificationSuccess("Đăng nhập thành công"));
       dispatch(noticeActions.setIsShowNoticeSuccess(true));
     } catch (error: unknown | string) {
       if (error instanceof Error) {
         setError(error.message);
       } else {
-        setError(error ? (error as unknown as string) : "Something went wrong");
+        setError(error ? (error as unknown as string) : "Đã xảy ra lỗi");
       }
       setShowError(true);
       setTimeout(() => {
@@ -138,16 +138,16 @@ const LoginPage: React.FC = () => {
       <div className="form-login">
         <div className="modal-login">
           <div className="logoLogin">
-            <span>Log in to continue your learning journey</span>
+            <span>Đăng nhập để tiếp tục hành trình </span>
           </div>
 
           <div className="input-area">
             <div className="input-field">
               <div className="username">
-                <p>Username</p>
+                <p>Tên đăng nhập</p>
                 <Input
                   onChange={handleOnchangeUser}
-                  placeHolder="Username"
+                  placeHolder=""
                   value={username}
                   onEnterPress={handleLogin}
                 />
@@ -156,10 +156,10 @@ const LoginPage: React.FC = () => {
                 </div>
               </div>
               <div className="password" style={{ position: "relative" }}>
-                <p>Password</p>
+                <p>Mật khẩu</p>
                 <InputPassword
                   onChange={handleOnchangePassword}
-                  placeHolder="Password"
+                  placeHolder=""
                   value={password}
                   onEnterPress={handleLogin}
                   type="password"
@@ -180,8 +180,8 @@ const LoginPage: React.FC = () => {
             </div>
             <div className="link-btn">
               <p>
-                Create a new account?
-                <span onClick={handleNavigate}>Sign up</span>
+                Bạn chưa có tài khoản ?
+                <span onClick={handleNavigate}>Đăng kí </span>
               </p>
             </div>
           </div>

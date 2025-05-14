@@ -131,7 +131,7 @@ export const apiService = {
     formData.append("Title", data.Title);
     formData.append("Description", data.Description);
     formData.append("Price", data.Price.toString());
-    formData.append("InstructorInfo", data.Duration);
+    formData.append("InstructorInfo", data.InstructorInfo);
     formData.append("Level", data.Level.toString());
     formData.append("ContentVideo", data.ContentVideo);
     formData.append("Video", data.Video);
