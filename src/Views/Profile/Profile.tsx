@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { noticeActions } from "../../Reduxs/Notification/Notification";
 import NoticeSuccess from "../../Components/Notification/SuccessAlert/NoticeSuccess";
 import NoticeError from "../../Components/Notification/ErrorAlert/NoticeError";
+import useCategoryData from "../Course/Hooks/GetAllCategory";
 
 interface UserProfileData {
   FirstName: string;
@@ -24,7 +25,6 @@ interface UserProfileData {
   Skill: string;
   InterestFields: string;
   AvatarFile: File | null;
-
   PhoneNumber: string;
   Email: string;
   Experience: string;
@@ -32,6 +32,7 @@ interface UserProfileData {
 }
 
 const Profile = () => {
+  useCategoryData();
   const userId = useAppSelector((state) => state.ProfileStore.userId);
   const dispatch = useDispatch();
 
@@ -87,7 +88,9 @@ const Profile = () => {
     AvatarFile: null,
     PhoneNumber: "",
   });
-
+  const CategoryOption = useAppSelector(
+    (state) => state.DropDataStore.CategoryOption
+  );
   const displayGender = (gender: number | null) => {
     if (gender === null) return "Không xác định";
     return gender === 0 ? "Nam" : gender === 1 ? "Nữ" : "Khác";
@@ -114,6 +117,7 @@ const Profile = () => {
         Language: profile.language ?? "",
         Bio: profile.bio ?? "",
       });
+      console.log(profile.avatar);
     }
   }, [profile]);
 
@@ -238,26 +242,25 @@ const Profile = () => {
       </div>
       <div className="profile-header">
         <div className="avatar-wrapper">
-          {formData.AvatarFile ? (
-            <img
-              className="avatar-preview"
-              src={URL.createObjectURL(formData.AvatarFile)}
-              alt="Xem trước Avatar"
-              width="150"
-              height="150"
-            />
-          ) : (
-            <iframe
-              className="avatar-iframe"
-              width="150"
-              height="150"
-              src={getIframeUrl(profile?.avatar)}
-              title="Hình đại diện"
-              onError={(e) =>
-                console.log("Lỗi tải iframe từ:", profile?.avatar, e)
-              }
-            />
-          )}
+          <img
+            className="avatar-preview"
+            src={profile?.avatar}
+            alt="Xem trước Avatar"
+            width="150"
+            height="150"
+          />
+
+          {/* //  <iframe
+          //     className="avatar-iframe"
+          //     width="150"
+          //     height="150"
+          //     src={getIframeUrl(profile?.avatar)}
+          //     title="Hình đại diện"
+          //     onError={(e) =>
+          //       console.log("Lỗi tải iframe từ:", profile?.avatar, e)
+          //     }
+          //   />
+          // )} */}
           {isEditing && (
             <Upload
               accept="image/*"
@@ -416,11 +419,8 @@ const Profile = () => {
               }
               className="info"
               placeholder="Chọn lĩnh vực quan tâm"
-            >
-              <Select.Option value="AI">AI</Select.Option>
-              <Select.Option value="Blockchain">Blockchain</Select.Option>
-              <Select.Option value="Web">Web</Select.Option>
-            </Select>
+              options={CategoryOption}
+            ></Select>
           </>
         ) : (
           <>

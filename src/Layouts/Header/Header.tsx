@@ -107,14 +107,14 @@ const Header = () => {
             onClick={() => {
               navigate("/login");
             }}
-            label={"Login"}
+            label={"Đăng nhập"}
             className="btn-login"
           ></Button>
           <Button
             onClick={() => {
               navigate("/signup");
             }}
-            label={"Sign Up"}
+            label={"Đăng ký"}
             className="btn-signup"
           ></Button>
         </div>
